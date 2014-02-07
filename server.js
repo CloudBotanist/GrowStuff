@@ -70,15 +70,20 @@ var walk = function(path) {
 };
 walk(routes_path);
 
-// Socket creation
-io.listen(app);
-io.sockets.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-});
-
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port;
-app.listen(port);
+var server = require('http').createServer(app);
+
+// Socket creation
+var sio = io.listen(server);
+sio.sockets.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});
+
+server.listen(3000);
 console.log('Express app started on port ' + port);
 
 // Initializing logger

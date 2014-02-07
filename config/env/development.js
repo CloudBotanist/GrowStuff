@@ -2,7 +2,6 @@
 
 
 module.exports = {
-    db: process.env.MONGOHQ_URL || 'mongodb://localhost/mean-dev',
     app: {
         name: 'GrowStuff'
     },

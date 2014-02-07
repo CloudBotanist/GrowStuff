@@ -76,6 +76,18 @@ var server = require('http').createServer(app);
 
 // Socket creation
 var sio = io.listen(server);
+
+// Reduce the logging output of Socket.IO
+    sio.set('log level',1);
+
+// Heroku won't actually allow us to use WebSockets
+// so we have to setup polling instead.
+// https://devcenter.heroku.com/articles/using-socket-io-with-node-js-on-heroku
+sio.configure(function () {
+  sio.set("transports", ["xhr-polling"]);
+  sio.set("polling duration", 10);
+});
+
 sio.sockets.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data) {

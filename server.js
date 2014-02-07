@@ -6,7 +6,8 @@
 var express = require('express'),
     fs = require('fs'),
     passport = require('passport'),
-    logger = require('mean-logger');
+    logger = require('mean-logger'),
+    io = require('socket.io');
 
 /**
  * Main application entry file.
@@ -17,7 +18,7 @@ var express = require('express'),
 // Set the node enviornment variable if not set before
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Initializing system variables 
+// Initializing system variables
 var config = require('./config/config'),
     mongoose = require('mongoose');
 
@@ -60,7 +61,7 @@ var walk = function(path) {
                 require(newPath)(app, passport);
             }
         // We skip the app/routes/middlewares directory as it is meant to be
-        // used and shared by routes as further middlewares and is not a 
+        // used and shared by routes as further middlewares and is not a
         // route by itself
         } else if (stat.isDirectory() && file !== 'middlewares') {
             walk(newPath);
@@ -69,6 +70,11 @@ var walk = function(path) {
 };
 walk(routes_path);
 
+// Socket creation
+io.listen(app);
+io.sockets.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+});
 
 // Start the app by listening on <port>
 var port = process.env.PORT || config.port;

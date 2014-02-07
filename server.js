@@ -70,28 +70,40 @@ var walk = function(path) {
 };
 walk(routes_path);
 
-// Start the app by listening on <port>
+
+/**
+ * Server creation
+ */
 var port = process.env.PORT || config.port;
 var server = require('http').createServer(app);
 
 // Socket creation
 var sio = io.listen(server);
 
-// Reduce the logging output of Socket.IO
-    sio.set('log level',1);
-
-// Heroku won't actually allow us to use WebSockets
-// so we have to setup polling instead.
-// https://devcenter.heroku.com/articles/using-socket-io-with-node-js-on-heroku
+// Socket configuration
+sio.set('log level',1);
 sio.configure(function () {
-  sio.set("transports", ["xhr-polling"]);
-  sio.set("polling duration", 10);
+    sio.set('transports', ['xhr-polling']);
+    sio.set('polling duration', 10);
 });
 
+var connected_user = {};
 sio.sockets.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
+    var user = null;
+    var lastStatus = null;
+
+    socket.on('identification', function (data) {
+        user = data.mac_adress;
+        lastStatus = data.status;
+
+        console.log('New connection from :' + user);
+
+        connected_user[user] = socket;
+    });
+
+    socket.on('status', function(status) {
+        console.log('Status update :');
+        console.log(status);
     });
 });
 

@@ -102,9 +102,12 @@ sio.sockets.on('connection', function (socket) {
         connected_user[user] = socket;
 
         console.log('Send Init');
-        setTimeout(function() {
-            socket.emit('watering', 5);
-        }, 3000);
+        var bob = function () {
+            setTimeout(function() {
+                socket.emit('watering', 5);
+                bob();
+            }, 3000);
+        };
     });
 
     socket.on('status', function(status) {

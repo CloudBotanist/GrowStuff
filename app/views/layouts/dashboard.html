@@ -96,10 +96,10 @@
                           <i class="fa fa-leaf"></i> Plantes <i class="fa fa-caret-down"></i>
                       </a>
                       <ul class="collapse nav in" id="charts">
-                          {% for plant in user.plants %}
+                          {% for p in user.plants %}
                           <li>
-                              <a class="active" href="index.html">
-                                  <i class="fa fa-angle-double-right"></i> #{{plant.name}}
+                              <a {% if (plant._id.toString() == p._id.toString()) %}class="active" {% endif %} href="/plants/{{p._id.toString()}}">
+                                  <i class="fa fa-angle-double-right"></i> #{{p.name}}
                               </a>
                           </li>
                           {% endfor %}

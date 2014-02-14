@@ -85,7 +85,7 @@ var sio = io.listen(server);
 sio.set('log level',1);
 sio.configure(function () {
     sio.set('transports', ['xhr-polling']);
-    sio.set('polling duration', 10);
+    sio.set('polling duration', 10000000);
 });
 
 var connected_user = {};
@@ -101,14 +101,14 @@ sio.sockets.on('connection', function (socket) {
 
         connected_user[user] = socket;
 
-        console.log('Send Init');
-        var bob = function () {
-            setTimeout(function() {
-                socket.emit('watering', 5);
-                bob();
-            }, 3000);
-        };
-        bob();
+        // console.log('Send Init');
+        // var bob = function () {
+        //     setTimeout(function() {
+        //         socket.emit('watering', 5);
+        //         bob();
+        //     }, 3000);
+        // };
+        // bob();
     });
 
     socket.on('status', function(status) {

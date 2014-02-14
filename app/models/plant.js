@@ -17,6 +17,7 @@ var PlantSchema = new Schema({
     },
     name: {
         type: String,
+        unique: true,
         trim: true
     },
     type: {
@@ -55,6 +56,7 @@ PlantSchema.path('name').validate(function (value, respond) {
     });
 }, 'Ce surnom est déjà donné à une autre plante... Innovez !');
 */
+
 /**
  * Statics
  */

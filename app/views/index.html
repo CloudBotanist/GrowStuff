@@ -1,8 +1,27 @@
 {% extends 'layouts/default.html' %}
 
 {% block content %}
-    <section data-ng-view />
-    <script type="text/javascript">
-        window.user = {{user|safe}};
-    </script>
+
+
+<div align="center"><img src="/img/logo.png" class="home_logo" /></div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="portlet portlet-default">
+		    <div class="portlet-heading">
+		        <div class="portlet-title">
+		            <h4>Connexion</h4>
+		        </div>
+		        <div class="clearfix"></div>
+		    </div>
+		    <div class="portlet-body">
+		    	<div align="center">
+		    		<a class="btn btn-block btn-social btn-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i> Sign in with Twitter</a>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+
 {% endblock %}

@@ -7,14 +7,14 @@
 <!-- Logout Notification Box -->
 <div id="logout">
     <div class="logout-message">
-        <img class="img-circle img-logout" src="img/profile-pic.jpg" alt="">
+        <img class="img-circle img-logout" src="{{user.twitter.profile_image_url}}" alt="">
         <h3>
             <i class="fa fa-sign-out text-green"></i> Ready to go?
         </h3>
         <p>Select "Logout" below if you are ready<br> to end your current session.</p>
         <ul class="list-inline">
             <li>
-                <a href="#" class="btn btn-green">
+                <a href="/signout" class="btn btn-green">
                     <strong>Logout</strong>
                 </a>
             </li>

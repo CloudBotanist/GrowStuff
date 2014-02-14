@@ -17,9 +17,14 @@ var PlantSchema = new Schema({
     },
     name: {
         type: String,
-        trim: true
+        trim: true,
+        unique: true
     },
     type: {
+        type: String,
+        trim: true
+    },
+    mode: {
         type: String,
         trim: true
     },
@@ -34,11 +39,15 @@ var PlantSchema = new Schema({
  */
 PlantSchema.path('name').validate(function(title) {
     return title.length;
-}, 'Name cannot be blank');
+}, 'Le nom ne peut être vide');
 
 PlantSchema.path('type').validate(function(type) {
     return type.length;
-}, 'Type cannot be blank');
+}, 'Le type ne peut être vide');
+
+PlantSchema.path('mode').validate(function(mode) {
+    return (mode === 'auto' || mode === 'manuel');
+}, 'Mode doit être soit "Manuel" soit "Auto"');
 
 /**
  * Statics

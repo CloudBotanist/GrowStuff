@@ -13,8 +13,14 @@ var mongoose = require('mongoose'),
  */
 exports.plant = function(req, res, next, id) {
     Plant.load(id, function(err, plant) {
-        if (err) return next(err);
-        if (!plant) return next(new Error('Failed to load plant ' + id));
+        if (err) {
+            console.log(req.user);
+            return res.render('new_plant' , {
+                user: req.user,
+                errors: [{message : 'Plante introuvable'}],
+                plant: plant
+            });
+        }
         req.plant = plant;
         next();
     });

@@ -14,7 +14,14 @@
         <div class="col-lg-12">
             <div class="page-title">
                 <div style="float:right"><a class="btn btn-red" href="/plants/delete/{{plant._id.toString()}}" onclick="return confirm('Êtes-vous sûrs ?');">Supprimer</a></div>
-                <h1>#{{plant.name}}
+                <h1>
+                    {% if plant.is_connected %}
+                        <span class="label green">Connected</span>
+                    {% else %}
+                        <span class="label red">Disconnected</span>
+                    {% endif %}
+
+                    #{{plant.name}}
                     <small>{{plant.type}}</small>
                 </h1>
             </div>

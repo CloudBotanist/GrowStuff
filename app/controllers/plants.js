@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
     Plant = mongoose.model('Plant'),
     Mention = mongoose.model('Mention'),
+    sockets = require('../workers/socket'),
     _ = require('lodash');
 
 
@@ -22,6 +23,8 @@ exports.plant = function(req, res, next, id) {
                 plant: plant
             });
         }
+
+        plant.is_connected = sockets.isPlantConnected(plant._id);
         req.plant = plant;
         next();
     });

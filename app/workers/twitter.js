@@ -62,7 +62,6 @@ module.exports = function() {
                 user: user._id,
                 sender: tweet.user
             });
-            console.log(mention);
             mention.save();
         });
 
@@ -83,6 +82,8 @@ module.exports = function() {
             if (err) {
                 return console.log(err);
             }
+
+            console.log('Concerned user by tweet ' + tweet.id + ' -> ' + JSON.stringify(user));
             processTweet(tweet, user);
         });
     });

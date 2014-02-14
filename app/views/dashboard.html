@@ -15,15 +15,16 @@
             <div class="page-title">
                 <div style="float:right"><a class="btn btn-red" href="/plants/delete/{{plant._id.toString()}}" onclick="return confirm('Êtes-vous sûrs ?');">Supprimer</a></div>
                 <h1>
+                    #{{plant.name}}
+                    <small>{{plant.type}}</small>
+                </h1>
+                <p>
                     {% if plant.is_connected %}
                         <span class="label green">Connected</span>
                     {% else %}
                         <span class="label red">Disconnected</span>
                     {% endif %}
-
-                    #{{plant.name}}
-                    <small>{{plant.type}}</small>
-                </h1>
+                </p>
             </div>
         </div>
         <!-- /.col-lg-12 -->
@@ -150,7 +151,7 @@
                                             </a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">{{mention.sender.name}}
-                                                    <span class="small pull-right">12:23 PM</span>
+                                                    <span class="small pull-right">{{mention.created|date('d/m/Y H:i')}}</span>
                                                 </h4>
                                                 <p>{{mention.text}}</p>
                                             </div>
@@ -159,17 +160,6 @@
                                 </div>
                                 <hr>
                                 {% endfor %}
-                            </div>
-                            <div class="portlet-footer">
-                                <form role="form">
-                                    <div class="form-group">
-                                        <textarea class="form-control" placeholder="Enter message..."></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-default pull-right">Send</button>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>

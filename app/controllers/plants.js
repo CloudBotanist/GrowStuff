@@ -35,7 +35,7 @@ exports.create = function(req, res) {
                 plant: plant
             });
         } else {
-            return req.redirect('/plants/'+plant._id);
+            return res.redirect('/plants/'+plant._id);
         }
     });
 };

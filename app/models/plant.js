@@ -19,6 +19,10 @@ var PlantSchema = new Schema({
         type: String,
         trim: true
     },
+    type: {
+        type: String,
+        trim: true
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'
@@ -31,6 +35,10 @@ var PlantSchema = new Schema({
 PlantSchema.path('name').validate(function(title) {
     return title.length;
 }, 'Name cannot be blank');
+
+PlantSchema.path('type').validate(function(type) {
+    return type.length;
+}, 'Type cannot be blank');
 
 /**
  * Statics

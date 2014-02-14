@@ -105,6 +105,8 @@ sio.sockets.on('connection', function (socket) {
     socket.on('status', function(status) {
         console.log('Status update :');
         console.log(status);
+
+        console.log('Send watering message');
         socket.emit('watering', 5);
     });
 });

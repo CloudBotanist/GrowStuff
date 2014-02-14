@@ -82,6 +82,9 @@ var server = require('http').createServer(app);
 var sio = io.listen(server);
 require('./app/workers/socket')(sio);
 
+// Twitter stream
+require('./app/workers/twitter')();
+
 
 server.listen(port);
 console.log('Express app started on port ' + port);

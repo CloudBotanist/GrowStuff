@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
     Plant = mongoose.model('Plant'),
+    Mention = mongoose.model('Mention'),
     _ = require('lodash');
 
 
@@ -98,9 +99,13 @@ exports.destroy = function(req, res) {
  * Show an plant
  */
 exports.show = function(req, res) {
-    res.render('dashboard', {
-        user: req.user,
-        plant: req.plant
+    Mention.find({}, function(err, mentions) {
+        console.log(mentions[0]);
+        res.render('dashboard', {
+            user: req.user,
+            plant: req.plant,
+            mentions: mentions
+        });
     });
 };
 

@@ -8,5 +8,5 @@ exports.index = function(req, res) {
 
 
 exports.dashboard = function(req, res) {
-    res.send('dashboard');
+    res.render('dashboard');
 };

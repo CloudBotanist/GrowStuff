@@ -80,7 +80,7 @@ var server = require('http').createServer(app);
 
 // Socket creation
 var sio = io.listen(server);
-require('./app/workers/socket')(sio);
+require('./app/workers/socket').init(sio);
 
 // Twitter stream
 require('./app/workers/twitter')();

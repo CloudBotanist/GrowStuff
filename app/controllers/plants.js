@@ -100,7 +100,6 @@ exports.destroy = function(req, res) {
  */
 exports.show = function(req, res) {
     Mention.find({}, function(err, mentions) {
-        console.log(mentions[0]);
         res.render('dashboard', {
             user: req.user,
             plant: req.plant,

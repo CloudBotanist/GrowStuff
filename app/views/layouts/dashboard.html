@@ -83,7 +83,8 @@
                       </p>
                       <p class="name tooltip-sidebar-logout">
                           {{user.name.split(' ')[0]}}
-                          <span class="last-name">{{user.name.split(' ')[1]}}</span> <a style="color: inherit" class="logout_open" href="/logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
+                          {% if user.name.split(' ')[1].length %}<span class="last-name">{{user.name.split(' ')[1]}}</span> {% endif %}
+                          <a style="color: inherit" class="logout_open" href="/logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
                       </p>
                       <div class="clearfix"></div>
                   </li>
@@ -99,7 +100,7 @@
                           {% for p in user.plants %}
                           <li>
                               <a {% if (plant._id.toString() == p._id.toString()) %}class="active" {% endif %} href="/plants/{{p._id.toString()}}">
-                                  <i class="fa fa-angle-double-right"></i> #{{p.name}}
+                                  {% if p.is_connected %}<i class="fa fa-circle text-green"></i>{% else %}<i class="fa fa-circle text-red"></i>{% endif %} #{{p.name}}
                               </a>
                           </li>
                           {% endfor %}

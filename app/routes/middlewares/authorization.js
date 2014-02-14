@@ -3,6 +3,8 @@
 var mongoose = require('mongoose'),
     Plant = mongoose.model('Plant');
 
+var sockets = require('../../workers/socket');
+
 /**
  * Generic require login routing middleware
  */
@@ -17,6 +19,10 @@ exports.requiresLogin = function(req, res, next) {
                 status: 500
             });
         }
+
+        plants.forEach(function(plant) {
+            plant.is_connected = sockets.isPlantConnected(plant._id);
+        });
 
         req.user.plants = plants;
         next();

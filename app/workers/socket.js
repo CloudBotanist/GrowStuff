@@ -1,6 +1,16 @@
 'use strict';
 
-module.exports = function(sio) {
+var connected_user = {};
+
+module.exports.isPlantConnected = function(plantId) {
+    if (connected_user[plantId]) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+module.exports.init = function(sio) {
 
     // Socket configuration
     sio.set('log level',1);
@@ -9,7 +19,6 @@ module.exports = function(sio) {
         sio.set('polling duration', 10000000);
     });
 
-    var connected_user = {};
     sio.sockets.on('connection', function (socket) {
         var user = null;
         var lastStatus = null;

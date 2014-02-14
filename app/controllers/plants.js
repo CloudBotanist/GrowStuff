@@ -102,7 +102,7 @@ exports.destroy = function(req, res) {
  * Show an plant
  */
 exports.show = function(req, res) {
-    Mention.find({}, function(err, mentions) {
+    Mention.find({}).sort({date: -1}).exec(function(err, mentions) {
         res.render('dashboard', {
             user: req.user,
             plant: req.plant,

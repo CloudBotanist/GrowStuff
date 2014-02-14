@@ -79,8 +79,8 @@ module.exports = function() {
         User.findOne({
             username: {$in: userMentioned}
         }, function(err, user) {
-            if (err) {
-                return console.log(err);
+            if (err || !user) {
+                return;
             }
 
             console.log('Concerned user by tweet ' + tweet.id + ' -> ' + JSON.stringify(user));

@@ -74,7 +74,7 @@ module.exports = function(app, passport, db) {
         app.use(app.router);
 
         // Setting the fav icon and static folder
-        app.use(express.favicon());
+        app.use(express.favicon(config.root + '/public/favicon.ico'));
         app.use(express.static(config.root + '/public'));
 
         // Assume "not found" in the error msgs is a 404. this is somewhat

@@ -1,4 +1,4 @@
-{% extends 'layouts/dashboard.html' %}
+{% extends 'layouts/default.html' %}
 
 {% block content %}
 <div id="wrapper">
@@ -103,13 +103,13 @@
             <ul id="side" class="nav navbar-nav side-nav">
                 <!-- begin SIDE NAV USER PANEL -->
                 <li class="side-user hidden-xs">
-                    <img class="img-circle" src="img/profile-pic.jpg" alt="">
+                    <img class="img-circle" src="{{user.twitter.profile_image_url}}" alt="">
                     <p class="welcome">
                         <i class="fa fa-key"></i> Logged in as
                     </p>
                     <p class="name tooltip-sidebar-logout">
-                        Marian
-                        <span class="last-name">Scuturici</span> <a style="color: inherit" class="logout_open" href="#logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
+                        {{user.name.split(' ')[0]}}
+                        <span class="last-name">{{user.name.split(' ')[1]}}</span> <a style="color: inherit" class="logout_open" href="/logout" data-toggle="tooltip" data-placement="top" title="Logout"><i class="fa fa-sign-out"></i></a>
                     </p>
                     <div class="clearfix"></div>
                 </li>

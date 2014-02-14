@@ -96,16 +96,13 @@
                           <i class="fa fa-leaf"></i> Plantes <i class="fa fa-caret-down"></i>
                       </a>
                       <ul class="collapse nav in" id="charts">
+                          {% for plant in plants %}
                           <li>
                               <a class="active" href="index.html">
-                                  <i class="fa fa-angle-double-right"></i> #Minette
+                                  <i class="fa fa-angle-double-right"></i> {{plant.name}}
                               </a>
                           </li>
-                          <li>
-                              <a href="#">
-                                  <i class="fa fa-angle-double-right"></i> #Tata
-                              </a>
-                          </li>
+                          {% endfor %}
                           <li>
                              <a href="#">
                                  <i class="fa fa-plus-circle"></i> Ajouter une plante

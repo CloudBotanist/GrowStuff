@@ -59,8 +59,10 @@ var respondToTweet = function(tweet, user, text) {
 };
 
 var processTweet = function(tweet, user) {
-    if(/watering|status/.test(tweet.text)) {
-        console.log("Matching tweet");
+    if(/watering/.test(tweet.text)) {
+        respondToTweet(tweet, user, 'Je vais m\'arroser !');
+    } else if (/status/.test(tweet.text)) {
+        respondToTweet(tweet, user, 'Status : Temperature 20° - Hymidité 30% - Chill out');
     } else {
         respondToTweet(tweet, user, 'Je ne connais pas mais je t\'aime déjà !');
     }

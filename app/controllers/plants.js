@@ -90,7 +90,10 @@ exports.destroy = function(req, res) {
  * Show an plant
  */
 exports.show = function(req, res) {
-    res.jsonp(req.plant);
+    res.render('dashboard', {
+        user: req.user,
+        plant: req.plant
+    });
 };
 
 /**

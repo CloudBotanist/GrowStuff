@@ -99,12 +99,12 @@
                           {% for plant in user.plants %}
                           <li>
                               <a class="active" href="index.html">
-                                  <i class="fa fa-angle-double-right"></i> {{plant.name}}
+                                  <i class="fa fa-angle-double-right"></i> #{{plant.name}}
                               </a>
                           </li>
                           {% endfor %}
                           <li>
-                             <a href="#">
+                             <a href="/plants/new">
                                  <i class="fa fa-plus-circle"></i> Ajouter une plante
                              </a>
                          </li>

@@ -12,7 +12,9 @@ exports.index = function(req, res) {
 
 
 exports.dashboard = function(req, res) {
-    res.render('dashboard', {
-        user: req.user
-    });
+    if (req.user.plants.length === 0) {
+        return res.redirect('/plants/new');
+    }
+
+    res.redirect('/plants/' + req.user.plants[0]._id);
 };

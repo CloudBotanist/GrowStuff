@@ -4,6 +4,10 @@ var mongoose = require('mongoose'),
     Plant = mongoose.model('Plant');
 
 exports.index = function(req, res) {
+    if (req.user) {
+        return res.redirect('/dashboard');
+    }
+
     res.render('index', {
         user: req.user ? JSON.stringify(req.user) : 'null'
     });

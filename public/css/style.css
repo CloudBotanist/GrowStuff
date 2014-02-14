@@ -160,6 +160,10 @@ a:focus {
     background-color: #ecf0f1;
 }
 
+.disconected {
+    opacity: 0.6 !important;
+}
+
 @media(min-width:768px) {
     #page-wrapper {
         margin: 50px 0 0 225px;

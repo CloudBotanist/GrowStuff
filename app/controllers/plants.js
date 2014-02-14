@@ -40,6 +40,15 @@ exports.create = function(req, res) {
 };
 
 /**
+ * Create a plant
+ */
+exports.new = function(req, res) {
+    res.render('new_plant', {
+        user: req.user
+    });
+};
+
+/**
  * Update a plant
  */
 exports.update = function(req, res) {

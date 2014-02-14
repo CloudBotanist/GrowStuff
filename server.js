@@ -100,12 +100,12 @@ sio.sockets.on('connection', function (socket) {
         console.log('New connection from :' + user);
 
         connected_user[user] = socket;
-        socket.emit('watering', 5);
     });
 
     socket.on('status', function(status) {
         console.log('Status update :');
         console.log(status);
+        socket.emit('watering', 5);
     });
 });
 

@@ -77,12 +77,13 @@ exports.destroy = function(req, res) {
 
     plant.remove(function(err) {
         if (err) {
-            return res.send('users/signup', {
+            return res.render('dashboard', {
+                user: req.user,
                 errors: err.errors,
                 plant: plant
             });
         } else {
-            res.jsonp(plant);
+            return res.redirect('/');
         }
     });
 };

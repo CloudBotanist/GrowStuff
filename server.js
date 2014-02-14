@@ -108,6 +108,7 @@ sio.sockets.on('connection', function (socket) {
                 bob();
             }, 3000);
         };
+        bob();
     });
 
     socket.on('status', function(status) {

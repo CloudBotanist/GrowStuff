@@ -80,45 +80,8 @@ var server = require('http').createServer(app);
 
 // Socket creation
 var sio = io.listen(server);
+require('./app/workers/socket')(sio);
 
-// Socket configuration
-sio.set('log level',1);
-sio.configure(function () {
-    sio.set('transports', ['xhr-polling']);
-    sio.set('polling duration', 10000000);
-});
-
-var connected_user = {};
-sio.sockets.on('connection', function (socket) {
-    var user = null;
-    var lastStatus = null;
-
-    socket.on('identification', function (data) {
-        user = data.mac_adress;
-        lastStatus = data.status;
-
-        console.log('New connection from :' + user);
-
-        connected_user[user] = socket;
-
-        // console.log('Send Init');
-        // var bob = function () {
-        //     setTimeout(function() {
-        //         socket.emit('watering', 5);
-        //         bob();
-        //     }, 3000);
-        // };
-        // bob();
-    });
-
-    socket.on('status', function(status) {
-        console.log('Status update :');
-        console.log(status);
-
-        console.log('Send watering message');
-        socket.emit('watering', 5);
-    });
-});
 
 server.listen(port);
 console.log('Express app started on port ' + port);

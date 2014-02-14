@@ -29,12 +29,13 @@ exports.create = function(req, res) {
 
     plant.save(function(err) {
         if (err) {
-            return res.send('users/signup', {
+            return res.render('new_plant', {
+                user: req.user,
                 errors: err.errors,
                 plant: plant
             });
         } else {
-            res.jsonp(plant);
+            return req.redirect('/plants/'+plant._id);
         }
     });
 };

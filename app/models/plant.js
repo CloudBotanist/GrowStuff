@@ -17,8 +17,7 @@ var PlantSchema = new Schema({
     },
     name: {
         type: String,
-        trim: true,
-        unique: true
+        trim: true
     },
     type: {
         type: String,
@@ -34,20 +33,31 @@ var PlantSchema = new Schema({
     }
 });
 
+var Plant = mongoose.model('Plant', PlantSchema);
+module.exports = Plant;
+
 /**
  * Validations
  */
-PlantSchema.path('name').validate(function(title) {
+
+Plant.schema.path('name').validate(function(title) {
     return title.length;
 }, 'Le nom ne peut être vide');
 
-PlantSchema.path('type').validate(function(type) {
+Plant.schema.path('type').validate(function(type) {
     return type.length;
 }, 'Le type ne peut être vide');
 
-PlantSchema.path('mode').validate(function(mode) {
+Plant.schema.path('mode').validate(function(mode) {
     return (mode === 'auto' || mode === 'manuel');
 }, 'Mode doit être soit "Manuel" soit "Auto"');
+
+
+Plant.schema.path('name').validate(function (value, respond) {
+    Plant.findOne({ name: value }, function (err, plant) {
+        if(plant) respond(false);
+    });
+}, 'Ce surnom est déjà donné à une autre plante... Innovez !');
 
 /**
  * Statics
@@ -58,4 +68,3 @@ PlantSchema.statics.load = function(id, cb) {
     }).populate('user', 'username').exec(cb);
 };
 
-mongoose.model('Plant', PlantSchema);

@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var express = require('express'),
+    swig = require('swig'),
     mongoStore = require('connect-mongo')(express),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
@@ -33,10 +34,11 @@ module.exports = function(app, passport, db) {
 
     // Set views path, template engine and default layout
     app.set('views', config.root + '/app/views');
-    app.set('view engine', 'jade');
+    app.engine('html', swig.renderFile);
+    app.set('view engine', 'html');
 
     // Enable jsonp
-    app.enable("jsonp callback");
+    app.enable('jsonp callback');
 
     app.configure(function() {
         // The cookieParser should be above session
@@ -68,7 +70,7 @@ module.exports = function(app, passport, db) {
 
         // Routes should be at the last
         app.use(app.router);
-        
+
         // Setting the fav icon and static folder
         app.use(express.favicon());
         app.use(express.static(config.root + '/public'));

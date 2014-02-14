@@ -130,7 +130,7 @@
       <!-- end SIDE NAVIGATION -->
 
       <!-- begin MAIN PAGE CONTENT -->
-      <div id="page-wrapper" {% if !plant.is_connected %}class="disconected"{% endif %}>
+      <div id="page-wrapper" {% if (plant && !plant.is_connected) %}class="disconected"{% endif %}>
           <div class="page-content">
             {% block content %}{% endblock %}
           </div>

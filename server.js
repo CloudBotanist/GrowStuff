@@ -100,6 +100,11 @@ sio.sockets.on('connection', function (socket) {
         console.log('New connection from :' + user);
 
         connected_user[user] = socket;
+
+        console.log('Send Init');
+        setTimeout(function() {
+            socket.emit('watering', 5);
+        }, 3000);
     });
 
     socket.on('status', function(status) {

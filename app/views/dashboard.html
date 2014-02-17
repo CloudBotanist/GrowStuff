@@ -2,6 +2,10 @@
 
 {% block content %}
 
+    <script type="text/javascript">
+        window.plantStatus = {{plant.status|safe}};
+    </script>
+
     {% for error in errors %}
     <div class="alert alert-danger">
         {{error.message}}
@@ -25,7 +29,7 @@
                         <span class="label red">Disconnected</span>
                     {% endif %}
                     - {{plant.mac_adress}}
-                    - Last Update {{plant.status[0].created|date('d/m/Y H:i')}}
+                    {% if plant.status.length > 0 %}- Last Update {{plant.status[0].created|date('d/m/Y H:i')}}{% endif %}
                 </p>
             </div>
         </div>

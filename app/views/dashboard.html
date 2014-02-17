@@ -25,6 +25,7 @@
                         <span class="label red">Disconnected</span>
                     {% endif %}
                     - {{plant.mac_adress}}
+                    - Last Update {{plant.status[0].created|date('d/m/Y H:i')}}
                 </p>
             </div>
         </div>

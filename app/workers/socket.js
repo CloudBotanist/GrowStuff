@@ -1,7 +1,8 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Plant = mongoose.model('Plant');
+    Plant = mongoose.model('Plant'),
+    Status = mongoose.model('Status');
 
 var connected_plant = [];
 
@@ -49,6 +50,10 @@ module.exports.init = function(sio) {
             retrievePlantFromSocket(socket, function(err, plant) {
                 console.log('Status update from '+ plant.name +' :');
                 console.log(status);
+
+                status.plant = plant.id;
+                var plantStatus = new Status(status);
+                plantStatus.save();
             });
         });
 

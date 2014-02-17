@@ -28,6 +28,9 @@ var PlantSchema = new Schema({
         type: String,
         trim: true
     },
+    mac_adress: {
+        type: String
+    },
     user: {
         type: Schema.ObjectId,
         ref: 'User'

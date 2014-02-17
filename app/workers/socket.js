@@ -1,9 +1,12 @@
 'use strict';
 
-var connected_user = {};
+var mongoose = require('mongoose'),
+    Plant = mongoose.model('Plant');
+
+var connected_plant = [];
 
 module.exports.isPlantConnected = function(plantId) {
-    if (connected_user[plantId]) {
+    if (connected_plant.indexOf(plantId.toString()) >= 0)  {
         return true;
     } else {
         return false;
@@ -20,16 +23,16 @@ module.exports.init = function(sio) {
     });
 
     sio.sockets.on('connection', function (socket) {
-        var user = null;
-        var lastStatus = null;
 
         socket.on('identification', function (data) {
-            user = data.mac_adress;
-            lastStatus = data.status;
+            Plant.findOne({mac_adress: data.mac_adress}, function(err, plant) {
+                if (!err && plant) {
+                    console.log('New connection from :' + plant.name);
 
-            console.log('New connection from :' + user);
-
-            connected_user[user] = socket;
+                    socket.set('plantId', plant.id);
+                    connected_plant.push(plant.id);
+                }
+            });
         });
 
         socket.on('status', function(status) {
@@ -38,6 +41,15 @@ module.exports.init = function(sio) {
 
             console.log('Send watering message');
             socket.emit('watering', 5);
+        });
+
+        socket.on('disconnect', function () {
+            socket.get('plantId', function(err, id) {
+                Plant.find(id, function(err, plant) {
+                    console.log('Plant '+ plant.name + ' disconnected');
+                    connected_plant.splice(connected_plant.indexOf(plant.id), 1);
+                });
+            });
         });
     });
 };

@@ -67,7 +67,7 @@ exports.create = function(req, res) {
                 plant: plant
             });
         } else {
-            return res.redirect('/plants/'+plant._id);
+            return res.redirect('/plants/' + plant._id);
         }
     });
 };
@@ -76,7 +76,7 @@ exports.create = function(req, res) {
  * Create a plant
  */
 exports.new = function(req, res) {
-    res.render('new_plant', {
+    res.render('plants/new', {
         user: req.user
     });
 };
@@ -126,13 +126,13 @@ exports.destroy = function(req, res) {
 exports.show = function(req, res) {
     if (req.plant.status.length === 0) {
         // Render the configuration page
-        res.render('config', {
+        res.render('plants/config', {
             user: req.user,
             plant: req.plant
         });
     } else {
         // Render the normal page
-        res.render('dashboard', {
+        res.render('plants/show', {
             user: req.user,
             plant: req.plant
         });
@@ -142,7 +142,7 @@ exports.show = function(req, res) {
 /**
  * Download configuration file
  */
-exports.config = function(req, res) {
+exports.configFile = function(req, res) {
     res.attachment('growstuff-' + req.plant.name + '.config');
 
     var configuration = '# Plant identification \n';

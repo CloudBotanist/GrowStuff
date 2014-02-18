@@ -1,4 +1,4 @@
-{% extends 'layouts/dashboard.html' %}
+{% extends '../layouts/dashboard.html' %}
 
 {% block content %}
 
@@ -28,8 +28,7 @@
                     {% else %}
                         <span class="label orange">Disconnected</span>
                     {% endif %}
-                    - {{plant.mac_adress}}
-                    {% if plant.status.length > 0 %}- Last Update {{plant.status[0].created|date('d/m/Y H:i')}}{% endif %}
+                    - Last Update {{plant.status[0].created|date('d/m/Y H:i')}}
                 </p>
             </div>
         </div>
@@ -148,7 +147,7 @@
                         </div>
                         <div id="chat" class="panel-collapse collapse in">
                             <div class="portlet-body chat-widget">
-                                {% for mention in mentions %}
+                                {% for mention in plant.mentions %}
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="media">

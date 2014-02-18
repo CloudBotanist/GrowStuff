@@ -18,7 +18,7 @@ module.exports = function(app) {
     app.get('/plants/new', authorization.requiresLogin, plants.new);
     app.post('/plants', authorization.requiresLogin, plants.create);
     app.get('/plants/:plantsId', authorization.requiresLogin, hasAuthorization, plants.show);
-    app.get('/plants/:plantsId/config', authorization.requiresLogin, hasAuthorization, plants.config);
+    app.get('/plants/:plantsId/config', authorization.requiresLogin, hasAuthorization, plants.configFile);
     app.put('/plants/:plantsId', authorization.requiresLogin, hasAuthorization, plants.update);
     app.get('/plants/delete/:plantsId', authorization.requiresLogin, hasAuthorization, plants.destroy);
 

@@ -10,32 +10,45 @@ var mongoose = require('mongoose'),
     sockets = require('../workers/socket'),
     _ = require('lodash');
 
+var async = require('async');
+
+
 
 /**
  * Find plant by id
  */
 exports.plant = function(req, res, next, id) {
     Plant.load(id, function(err, plant) {
-        if (err) {
-            console.log(req.user);
-            return res.render('new_plant' , {
-                user: req.user,
-                errors: [{message : 'Plante introuvable'}],
-                plant: plant
-            });
-        }
 
-        plant.is_connected = sockets.isPlantConnected(plant._id);
+        async.parallel([
+            function(cb) {
+                cb(null, sockets.isPlantConnected(plant._id));
+            },
+            function(cb) {
+                Mention.find({plant: plant.id}).sort({date: -1}).exec(cb);
+            },
+            function(cb) {
+                Status.find({plant: plant.id}).sort({created: -1}).limit(100).exec(cb);
+            }
+        ],
+            function(err, results){
+                if (err) {
+                    res.render('error', {
+                        status: 500
+                    });
+                }
 
-        Status
-         .find({plant: plant.id})
-         .sort({created: -1})
-         .limit(100)
-         .exec(function(err, status) {
-            plant.status = status;
-            req.plant = plant;
-            next();
-        });
+                var newPlant = plant;
+
+                newPlant.is_connected = results[0];
+                newPlant.mentions = results[1];
+                newPlant.status = results[2];
+
+                req.plant = newPlant;
+                next();
+            }
+        );
+
     });
 };
 
@@ -119,12 +132,9 @@ exports.show = function(req, res) {
         });
     } else {
         // Render the normal page
-        Mention.find({}).sort({date: -1}).exec(function(err, mentions) {
-            res.render('dashboard', {
-                user: req.user,
-                plant: req.plant,
-                mentions: mentions
-            });
+        res.render('dashboard', {
+            user: req.user,
+            plant: req.plant
         });
     }
 };

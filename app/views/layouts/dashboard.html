@@ -100,7 +100,14 @@
                           {% for p in user.plants %}
                           <li>
                               <a {% if (plant._id.toString() == p._id.toString()) %}class="active" {% endif %} href="/plants/{{p._id.toString()}}">
-                                  {% if p.is_connected %}<i class="fa fa-circle text-green"></i>{% else %}<i class="fa fa-circle text-red"></i>{% endif %} #{{p.name}}
+                                  {% if p.is_connected %}
+                                    <i class="fa fa-circle text-green"></i>
+                                  {% elif p.status.length === 0 %}
+                                    <i class="fa fa-circle text-red"></i>
+                                  {% else %}
+                                    <i class="fa fa-circle text-orange"></i>
+                                  {% endif %}
+                                    #{{p.name}}
                               </a>
                           </li>
                           {% endfor %}
@@ -130,7 +137,7 @@
       <!-- end SIDE NAVIGATION -->
 
       <!-- begin MAIN PAGE CONTENT -->
-      <div id="page-wrapper" {% if (plant && !plant.is_connected) %}class="disconected"{% endif %}>
+      <div id="page-wrapper">
           <div class="page-content">
             {% block content %}{% endblock %}
           </div>

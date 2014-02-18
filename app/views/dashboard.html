@@ -26,7 +26,7 @@
                     {% if plant.is_connected %}
                         <span class="label green">Connected</span>
                     {% else %}
-                        <span class="label red">Disconnected</span>
+                        <span class="label orange">Disconnected</span>
                     {% endif %}
                     - {{plant.mac_adress}}
                     {% if plant.status.length > 0 %}- Last Update {{plant.status[0].created|date('d/m/Y H:i')}}{% endif %}

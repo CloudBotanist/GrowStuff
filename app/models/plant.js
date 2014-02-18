@@ -52,14 +52,6 @@ PlantSchema.path('mode').validate(function(mode) {
     return (mode === 'auto' || mode === 'manuel');
 }, 'Mode doit être soit "Manuel" soit "Auto"');
 
-/*
-PlantSchema.path('name').validate(function (value, respond) {
-    this.findOne({ name: value }, function (err, plant) {
-        if(plant) respond(false);
-    });
-}, 'Ce surnom est déjà donné à une autre plante... Innovez !');
-*/
-
 /**
  * Statics
  */

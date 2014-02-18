@@ -130,6 +130,22 @@ exports.show = function(req, res) {
 };
 
 /**
+ * Download configuration file
+ */
+exports.config = function(req, res) {
+    res.attachment('growstuff-' + req.plant.name + '.config');
+
+    var configuration = '# Plant identification \n';
+    configuration += 'ID=' + req.plant.id + '\n';
+    configuration += '# Plant name \n';
+    configuration += 'NAME=' + req.plant.name + '\n';
+    configuration += '# Plant type \n';
+    configuration += 'TYPE=' + req.plant.type + '\n';
+
+    res.send(configuration);
+};
+
+/**
  * List of Plants
  */
 exports.all = function(req, res) {

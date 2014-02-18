@@ -111,13 +111,22 @@ exports.destroy = function(req, res) {
  * Show an plant
  */
 exports.show = function(req, res) {
-    Mention.find({}).sort({date: -1}).exec(function(err, mentions) {
-        res.render('dashboard', {
+    if (req.plant.status.length === 0) {
+        // Render the configuration page
+        res.render('config', {
             user: req.user,
-            plant: req.plant,
-            mentions: mentions
+            plant: req.plant
         });
-    });
+    } else {
+        // Render the normal page
+        Mention.find({}).sort({date: -1}).exec(function(err, mentions) {
+            res.render('dashboard', {
+                user: req.user,
+                plant: req.plant,
+                mentions: mentions
+            });
+        });
+    }
 };
 
 /**

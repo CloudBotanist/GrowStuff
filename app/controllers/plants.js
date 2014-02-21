@@ -161,7 +161,7 @@ exports.configFile = function(req, res) {
 exports.watering = function(req, res) {
     var time = req.query.time || 5;
     if (req.plant.is_connected) {
-        sockets.sendMessage(req.plant._id, 'watering', {time: time});
+        sockets.sendMessage(req.plant._id, 'watering', time);
     }
 
     res.redirect('/plants/' + req.plant._id);

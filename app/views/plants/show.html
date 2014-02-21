@@ -3,7 +3,7 @@
 {% block content %}
 
     <script type="text/javascript">
-        window.plantStatus = {{plant.status|safe}};
+    window.plantStatus = {{JSON.stringify(plant.status)|safe}};
     </script>
 
     {% for error in errors %}
@@ -59,15 +59,15 @@
         <div class="col-lg-4 col-sm-12">
             <div class="circle-tile">
                 <a href="#">
-                    <div class="circle-tile-heading green">
-                        <i class="fa fa-beer fa-fw fa-3x"></i>
+                    <div class="circle-tile-heading blue">
+                        <i class="fa fa-tint fa-fw fa-3x"></i>
                     </div>
                 </a>
-                <div class="circle-tile-content green">
+                <div class="circle-tile-content blue">
                     <div class="circle-tile-description text-faded">
-                        Autonomie
+                        Humidité
                     </div>
-                    <div id="easy-pie-1" class="easy-pie-chart" data-percent="86">
+                    <div id="easy-pie-1" class="easy-pie-chart" data-percent="{{plant.status[0].hum}}">
                         <span class="percent"></span>
                     </div>
                     <br><br><br>
@@ -78,16 +78,21 @@
         <div class="col-lg-4 col-sm-6">
             <div class="circle-tile">
                 <a href="#">
-                    <div class="circle-tile-heading blue">
-                        <i class="fa fa-tint fa-fw fa-3x"></i>
+                    <div class="circle-tile-heading green">
+                        <i class="fa fa-beer fa-fw fa-3x"></i>
                     </div>
                 </a>
-                <div class="circle-tile-content blue">
+                <div class="circle-tile-content green">
                     <div class="circle-tile-description text-faded">
-                        Humidité
+                        Présence eau
                     </div>
                     <div class="circle-tile-number text-faded">
-                        {{plant.status[0].hum}}%
+                        {% if plant.status[0].water_presence %}
+                            Oui
+                        {% else %}
+                            Non
+                        {% endif %}
+
                     </div>
 
                 </div>
@@ -105,7 +110,7 @@
                         Ensoleillement
                     </div>
                     <div class="circle-tile-number text-faded">
-                        Moyen
+                        {{plant.status[0].light}}
                     </div>
 
                 </div>
@@ -123,7 +128,13 @@
                         Humeur
                     </div>
                     <div class="circle-tile-number text-faded">
+                        {% if plant.status[0].hum < 10 %}
+                        Thirsty
+                        {% elseif plant.status[0].hum >= 10 && plant.status[0].hum < 75 %}
                         Chill out
+                        {% else %}
+                        Full
+                        {% endif %}
                     </div>
 
                 </div>
@@ -154,7 +165,7 @@
         <div class="col-lg-4">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="portlet portlet-default">
+                    <div class="portlet portlet-default"  style="height: 340px">
                         <div class="portlet-heading">
                             <div class="portlet-title">
                                 <h4><i class="fa fa-twitter"></i> Twitter feeds</h4>
@@ -181,6 +192,10 @@
                                 </div>
                                 <hr>
                                 {% endfor %}
+                                
+                                {% if plant.mentions.length == 0 %}
+                                No mention yet
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -192,20 +207,24 @@
         <div class="col-lg-8">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="tile dark-blue" style="height: 320px">
-                        <h4><i class="fa fa-beer"></i> Consommation <a href="javascript:;"><i class="fa fa-refresh pull-right"></i></a>
+                    <div class="tile dark-blue" style="height: 340px">
+                        <h4><i class="fa fa-tint"></i> Humidity <a href="javascript:;"><i class="fa fa-refresh pull-right"></i></a>
                         </h4>
-                        <p class="small text-faded">
-                            Semaine:
-                            <strong>250ml</strong> -
-                            Mois:
-                            <strong>2453ml</strong>
-                        </p>
                         <div id="morris-chart-dashboard"></div>
                     </div>
                 </div>
 
             </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tile orange" style="height: 320px">
+                    <h4><i class="fa fa-tint"></i> Temperature <a href="javascript:;"><i class="fa fa-refresh pull-right"></i></a>
+                    </h4>
+                    <div id="morris-chart-temperature"></div>
+                </div>
+            </div>
+
         </div>
 
     </div>

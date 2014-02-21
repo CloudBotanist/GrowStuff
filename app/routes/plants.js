@@ -20,7 +20,7 @@ module.exports = function(app) {
     app.get('/plants/:plantsId', authorization.requiresLogin, hasAuthorization, plants.show);
     app.get('/plants/:plantsId/config', authorization.requiresLogin, hasAuthorization, plants.configFile);
     app.put('/plants/:plantsId', authorization.requiresLogin, hasAuthorization, plants.update);
-    app.get('/plants/delete/:plantsId', authorization.requiresLogin, hasAuthorization, plants.destroy);
+    app.get('/plants/:plantsId/delete', authorization.requiresLogin, hasAuthorization, plants.destroy);
 
     // Finish with setting up the articleId param
     app.param('plantsId', plants.plant);

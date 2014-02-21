@@ -18,7 +18,19 @@
         <div class="col-lg-12">
             <div class="page-title">
                 <div class="btn-group" style="float:right">
-                    <a class="btn btn-blue {% if !plant.is_connected %}disabled{% endif %}" href="/plants/{{plant._id.toString()}}/watering">Arroser</a>
+                    <div class="btn-group {% if !plant.is_connected %}disabled{% endif %}">
+                        <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
+                            Arroser
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for value in [5, 10, 15, 20] %}
+                            <li>
+                                <a href="/plants/{{plant._id.toString()}}/watering?time={{value}}">{{value}} mL</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                     <a class="btn btn-red" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Êtes-vous sûrs ?');">Supprimer</a>
                 </div>
 

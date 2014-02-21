@@ -36,7 +36,7 @@ module.exports.init = function(sio) {
     sio.sockets.on('connection', function (socket) {
 
         socket.on('identification', function (data) {
-            Plant.findOne({mac_adress: data.id}, function(err, plant) {
+            Plant.findOne({_id: data.id}, function(err, plant) {
                 if (!err && plant) {
                     console.log('New connection from :' + plant.name);
 

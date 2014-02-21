@@ -44,8 +44,12 @@ module.exports.init = function(sio) {
     sio.sockets.on('connection', function (socket) {
 
         socket.on('identification', function (data) {
-            console.log(data);
+            data = JSON.parse(data);
             Plant.findOne({_id: data.id}, function(err, plant) {
+                if (err) {
+                    console.log(err);
+                }
+
                 if (!err && plant) {
                     console.log('New connection from :' + plant.name);
 
@@ -55,7 +59,8 @@ module.exports.init = function(sio) {
             });
         });
 
-        socket.on('status', function(status) {
+        socket.on('status', function(data) {
+            var status = JSON.parse(data);
             retrievePlantFromSocket(socket, function(err, plant) {
                 if (!plant) {
                     return console.log('The plant is not authenticated');

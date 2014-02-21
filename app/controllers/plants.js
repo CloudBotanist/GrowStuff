@@ -159,8 +159,9 @@ exports.configFile = function(req, res) {
  * Download configuration file
  */
 exports.watering = function(req, res) {
+    var time = req.query.time || 5;
     if (req.plant.is_connected) {
-        sockets.sendMessage(req.plant._id, 'watering', {time: 5});
+        sockets.sendMessage(req.plant._id, 'watering', {time: time});
     }
 
     res.redirect('/plants/' + req.plant._id);

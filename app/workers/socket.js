@@ -19,7 +19,7 @@ module.exports.sendMessage = function(plantId, event, message) {
 
     console.log('Send the ' + event + ' event to the plant with id ' + plantId);
     console.log(socket);
-    socket.emit(event, message);
+    socket.emit (event, message);
 };
 
 var retrievePlantFromSocket = function(socket, cb) {
@@ -60,8 +60,7 @@ module.exports.init = function(sio) {
                     return console.log('The plant is not authenticated');
                 }
 
-                console.log('Status update from '+ plant.name +' :');
-                console.log(status);
+                console.log('Status update from '+ plant.name);
 
                 status.plant = plant.id;
                 var plantStatus = new Status(status);

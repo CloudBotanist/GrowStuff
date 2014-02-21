@@ -156,6 +156,17 @@ exports.configFile = function(req, res) {
 };
 
 /**
+ * Download configuration file
+ */
+exports.watering = function(req, res) {
+    if (req.plant.is_connected) {
+        sockets.sendMessage(req.plant._id, 'watering', {time: 5});
+    }
+
+    res.redirect('/plants/' + req.plant._id);
+};
+
+/**
  * List of Plants
  */
 exports.all = function(req, res) {

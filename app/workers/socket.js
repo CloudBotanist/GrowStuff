@@ -4,14 +4,22 @@ var mongoose = require('mongoose'),
     Plant = mongoose.model('Plant'),
     Status = mongoose.model('Status');
 
-var connected_plant = [];
+var connected_plant = {};
 
 module.exports.isPlantConnected = function(plantId) {
-    if (connected_plant.indexOf(plantId.toString()) >= 0)  {
+    if (connected_plant[plantId.toString()])  {
         return true;
     } else {
         return false;
     }
+};
+
+module.exports.sendMessage = function(plantId, event, message) {
+    var socket = connected_plant[plantId];
+
+    console.log('Send the ' + event + ' event to the plant with id ' + plantId);
+    console.log(socket);
+    socket.emit(event, message);
 };
 
 var retrievePlantFromSocket = function(socket, cb) {
@@ -41,13 +49,17 @@ module.exports.init = function(sio) {
                     console.log('New connection from :' + plant.name);
 
                     socket.set('plantId', plant.id);
-                    connected_plant.push(plant.id);
+                    connected_plant[plant.id] = socket;
                 }
             });
         });
 
         socket.on('status', function(status) {
             retrievePlantFromSocket(socket, function(err, plant) {
+                if (!plant) {
+                    return console.log('The plant is not authenticated');
+                }
+
                 console.log('Status update from '+ plant.name +' :');
                 console.log(status);
 
@@ -60,7 +72,7 @@ module.exports.init = function(sio) {
         socket.on('disconnect', function () {
             retrievePlantFromSocket(socket, function(err, plant) {
                 console.log('Plant '+ plant.name + ' disconnected');
-                connected_plant.splice(connected_plant.indexOf(plant.id), 1);
+                delete connected_plant[plant.id];
             });
         });
     });

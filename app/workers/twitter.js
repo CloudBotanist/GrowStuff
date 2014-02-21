@@ -34,8 +34,12 @@ module.exports = function() {
 
         console.log('Tweet Id ' + tweet.id );
 
+        // Formating date
+        var d = new Date();
+        var formatedDate = d.getHours() + ':' + d.getMinutes();
+
         T.post('statuses/update', {
-            status: '@' + tweet.user.screen_name + ' ' + text,
+            status: '@' + tweet.user.screen_name + ' (' + formatedDate + ') ' + text,
             in_reply_to_status_id: tweet.id_str
         }, function(err, res) {
             if(err) {
@@ -87,6 +91,8 @@ module.exports = function() {
                     availablePlants += '#' + plant.name + ' ';
                 });
 
+                console.log(availablePlants);
+
                 // Set the mention text
                 if (!plant) {
                     return cb(null, 'Pas de plante mentionée \n' + availablePlants);
@@ -102,8 +108,8 @@ module.exports = function() {
                 cb(null, plant);
             }
         ], function(err, res) {
-            if (err) {
-                textToSend = 'Erreur server';
+            if (err || !textToSend) {
+                textToSend = 'Erreur serveur';
             }
 
             respondToTweet(tweet, user, textToSend, function(err) {

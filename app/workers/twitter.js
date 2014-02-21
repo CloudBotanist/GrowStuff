@@ -1,8 +1,11 @@
 'use strict';
 
 var Twit = require('twit');
+var socket = require('./socket');
+var async = require('async');
 var mongoose = require('mongoose'),
     User = mongoose.model('User'),
+    Plant = mongoose.model('Plant'),
     Mention = mongoose.model('Mention');
 
 
@@ -45,26 +48,75 @@ module.exports = function() {
     };
 
     var processTweet = function(tweet, user) {
-
         var textToSend;
-        if(/watering/.test(tweet.text)) {
-            textToSend = 'Je vais m\'arroser !';
-        } else if (/status/.test(tweet.text)) {
-            textToSend = 'Status : Temperature 20° - Hymidité 30% - Chill out';
-        } else {
-            textToSend = 'Je n\'ai pas compris ! \n "Status" ou "Watering"';
-        }
 
-        respondToTweet(tweet, user, textToSend, function(err) {
-            var mention = new Mention({
-                text: tweet.text,
-                status: err ? 'pending' : 'released',
-                user: user._id,
-                sender: tweet.user
+        async.waterfall([
+            function(cb) {
+                // Retrieve users plants
+                Plant.find({user: user._id}, cb);
+            }, function(plants, cb) {
+                // Delete plant which are not connected
+                var connectedPlants = [];
+                plants.forEach(function(plant) {
+                    if(socket.isPlantConnected(plant._id)) {
+                        connectedPlants.push(plant);
+                    }
+                });
+
+                // Select the plant
+                if (connectedPlants.length === 0) {
+                    cb(null, null, connectedPlants);
+                } else if(connectedPlants.length === 1) {
+                    cb(null, connectedPlants[0], connectedPlants);
+                } else {
+                    var hashtags = tweet.text.match(/#([a-zA-Z0-9]+)/g);
+                    hashtags.forEach(function(hashtag) {
+                        plants.forEach(function(plant) {
+                            if ('#' + plant.name === hashtag) {
+                                return cb(null, plant, connectedPlants);
+                            }
+                        });
+                    });
+
+                    return cb(null, null, connectedPlants);
+                }
+            }, function(plant, connectedPlants, cb) {
+                // Create string with available plants
+                var availablePlants = '';
+                connectedPlants.forEach(function(plant) {
+                    availablePlants += '#' + plant.name + ' ';
+                });
+
+                // Set the mention text
+                if (!plant) {
+                    return cb(null, 'Pas de plante mentionée \n' + availablePlants);
+                } else if(/watering/.test(tweet.text)) {
+                    socket.sendMessage(plant._id, 'watering', 5);
+                    textToSend = plant.name + ' : Arroser la plante';
+                } else if (/status/.test(tweet.text)) {
+                    textToSend = plant.name + ' : Temperature 20° - Hymidité 30% - Chill out';
+                } else {
+                    textToSend = 'Pas compris\nCommandes: "status" ou "watering"\n' + 'Plantes: ' + availablePlants;
+                }
+
+                cb(null, plant);
+            }
+        ], function(err, res) {
+            if (err) {
+                textToSend = 'Erreur server';
+            }
+
+            respondToTweet(tweet, user, textToSend, function(err) {
+                var mention = new Mention({
+                    text: tweet.text,
+                    plant: res.plant ? res.plant._id : null,
+                    status: err ? 'pending' : 'released',
+                    user: user._id,
+                    sender: tweet.user
+                });
+                mention.save();
             });
-            mention.save();
         });
-
     };
 
     stream.on('tweet', function (tweet) {

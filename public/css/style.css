@@ -37,12 +37,12 @@ a,
 a:hover,
 a:active,
 a:focus {
-    color: #34495e;
+    color: #289F8B;
 }
 
 @media(min-width:768px) {
     body {
-        background: #34495e;
+        background: #289F8B;
     }
 }
 
@@ -66,7 +66,7 @@ a:focus {
 /* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
 
  .dark-blue {
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 .green {
@@ -108,7 +108,7 @@ a:focus {
 /* -- Text Color Helper Classes */
 
  .text-dark-blue {
-    color: #34495e;
+    color: #289F8B;
 }
 
 .text-green {
@@ -169,7 +169,7 @@ a:focus {
         margin: 50px 0 0 225px;
         padding: 0 30px;
         min-height: 1300px;
-        border-left: 1px solid #2c3e50;
+        border-left: 1px solid #1c7561;
     }
 
     #page-wrapper.collapsed {
@@ -206,7 +206,7 @@ a:focus {
 
  .navbar-top {
     margin-left: 0;
-    background-color: #2c3e50;
+    background-color: #1c7561;
 }
 
 .navbar-top .navbar-brand a {
@@ -412,7 +412,7 @@ a:focus {
     text-align: center;
     font-size: 11px;
     line-height: 20px;
-    background-color: #2c3e50;
+    background-color: #1c7561;
 }
 
 @media(min-width:768px) {
@@ -504,7 +504,7 @@ a:focus {
     width: 100%;
     padding: 15px;
     border-top: none !important;
-    border-bottom: 1px solid #142638;
+    border-bottom: 1px solid #227E65;
     text-align: center;
 }
 
@@ -568,9 +568,9 @@ a:focus {
 .navbar-side ul.side-nav {
     margin-top: 0;
     margin-bottom: 0;
-    border-bottom: 1px solid #54677a;
+    border-bottom: 1px solid #22bf95;
     font-size: 13px;
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 .navbar-side .navbar-nav>li>a,
@@ -580,13 +580,13 @@ a:focus {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
     outline: none;
     color: #fff;
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 .navbar-side .side-nav li,
 .navbar-side .side-nav li.panel {
-    border-top: 1px solid #54677a;
-    border-bottom: 1px solid #142638;
+    border-top: 1px solid #22bf95;
+    border-bottom: 1px solid #227E65;
 }
 
 .navbar-side .side-nav li.panel ul li {
@@ -619,7 +619,7 @@ a:focus {
 }
 
 .navbar-side .side-nav > li > a.active {
-    background-color: #2c3e50;
+    background-color: #1c7561;
 }
 
 .navbar-side .side-nav li.panel ul li a.active {
@@ -662,7 +662,7 @@ a:focus {
 
     .navbar-side .side-nav > li > a:hover {
         color: #fff;
-        background-color: #3d566e;
+        background-color: #1d7864;
     }
 
     .navbar-side .side-nav li.panel ul li a:hover,
@@ -866,13 +866,13 @@ a:focus {
 .portlet-dark-blue,
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
-    border-color: #34495e;
+    border-color: #289F8B;
 }
 
 .portlet-default>.portlet-heading,
 .portlet-dark-blue>.portlet-heading {
     color: #fff;
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 .portlet-basic,
@@ -1252,7 +1252,7 @@ fieldset[disabled] .btn-purple.active {
 .btn-dark-blue {
     border-color: #314559;
     color: #fff;
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 .btn-default:hover,
@@ -1265,9 +1265,9 @@ fieldset[disabled] .btn-purple.active {
 .btn-dark-blue.active,
 .open .dropdown-toggle.btn-default,
 .open .dropdown-toggle.btn-dark-blue {
-    border-color: #2c3e50;
+    border-color: #1c7561;
     color: #fff;
-    background-color: #2f4254;
+    background-color: #1C7561;
 }
 
 .btn-default.disabled,
@@ -1357,7 +1357,7 @@ fieldset[disabled] .btn-dark-blue.active {
 
  .modal-flex .modal-header {
     color: #fff;
-    background-color: #2f4254;
+    background-color: #1C7561;
 }
 
 .modal-flex .modal-header .close,
@@ -1415,7 +1415,7 @@ fieldset[disabled] .btn-dark-blue.active {
 
  .img-profile {
     margin-bottom: 10px;
-    border: 1px solid #34495e;
+    border: 1px solid #289F8B;
 }
 
 .profile-edit {
@@ -1574,7 +1574,7 @@ a.google-plus-link:hover {
 /* -- Login Page Styles */
 
  .login {
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 .login-banner {
@@ -1621,7 +1621,7 @@ a.google-plus-link:hover {
  .pricing-basic .plan {
     margin: 0 0 15px;
     padding: 0 0 20px;
-    border: 1px solid #34495e;
+    border: 1px solid #289F8B;
     text-align: center;
     list-style: none;
     background: #fff;
@@ -1646,7 +1646,7 @@ a.google-plus-link:hover {
     font-size: 24px;
     line-height: 24px;
     color: #fff;
-    background: #34495e;
+    background: #289F8B;
 }
 
 .pricing-basic .plan li > strong {
@@ -1720,7 +1720,7 @@ a.google-plus-link:hover {
 }
 
 .pricing-circle .plan.featured {
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 /* -- 404 Page Styles */
@@ -1787,7 +1787,7 @@ a.google-plus-link:hover {
 */
 
  .form-control:focus {
-    border-color: #34495e;
+    border-color: #289F8B;
     box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset;
 }
 
@@ -1840,7 +1840,7 @@ ol.breadcrumb li.pull-right:before {
 .dropdown-menu>.active>a,
 .dropdown-menu>.active>a:hover,
 .dropdown-menu>.active>a:focus {
-    background-color: #34495e;
+    background-color: #289F8B;
 }
 
 a.list-group-item.active,
@@ -1855,8 +1855,8 @@ a.list-group-item.active:focus,
 .pagination>.active>span:hover,
 .pagination>.active>a:focus,
 .pagination>.active>span:focus {
-    border-color: #34495e;
-    background-color: #34495e;
+    border-color: #289F8B;
+    background-color: #289F8B;
 }
 
 .nav-tabs,

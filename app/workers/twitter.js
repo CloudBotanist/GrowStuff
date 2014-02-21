@@ -87,6 +87,8 @@ module.exports = function() {
                     availablePlants += '#' + plant.name + ' ';
                 });
 
+                console.log(availablePlants);
+
                 // Set the mention text
                 if (!plant) {
                     return cb(null, 'Pas de plante mentionée \n' + availablePlants);
@@ -102,8 +104,8 @@ module.exports = function() {
                 cb(null, plant);
             }
         ], function(err, res) {
-            if (err) {
-                textToSend = 'Erreur server';
+            if (err || !textToSend) {
+                textToSend = 'Erreur serveur';
             }
 
             respondToTweet(tweet, user, textToSend, function(err) {

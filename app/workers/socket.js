@@ -17,8 +17,7 @@ module.exports.isPlantConnected = function(plantId) {
 module.exports.sendMessage = function(plantId, event, message) {
     var socket = connected_plant[plantId];
 
-    console.log('Send the ' + event + ' event to the plant with id ' + plantId);
-    console.log(socket);
+    console.log('Send the ' + event + ' event to the plant with id ' + plantId + ' -> ' + JSON.stringify(message));
     socket.emit (event, message);
 };
 

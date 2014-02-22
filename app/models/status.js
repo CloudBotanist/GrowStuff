@@ -19,7 +19,7 @@ var StatusSchema = new Schema({
     hum: {type: Number},
     light: {type: Number},
     ground_hum: {type: Number},
-    water_presence: {type: Boolean},
+    water_presence: {type: Number},
     plant: {
         type: Schema.ObjectId,
         ref: 'Plant'

@@ -45,6 +45,7 @@ $(document).ready(function() {
     });
 
     //Morris Area Chart
+    console.log(plantStatus);
     var sales_data = new Array();
     for(i=0; i < plantStatus.length; i++){
         sales_data[i] = {

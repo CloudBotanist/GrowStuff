@@ -60,6 +60,8 @@ module.exports.init = function(sio) {
 
         socket.on('status', function(data) {
             var status = JSON.parse(data);
+            console.log(status.toString());
+
             retrievePlantFromSocket(socket, function(err, plant) {
                 if (!plant) {
                     return console.log('The plant is not authenticated');

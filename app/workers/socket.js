@@ -75,6 +75,9 @@ module.exports.init = function(sio) {
 
         socket.on('disconnect', function () {
             retrievePlantFromSocket(socket, function(err, plant) {
+                if (err) {
+                    return;
+                }
                 console.log('Plant '+ plant.name + ' disconnected');
                 delete connected_plant[plant.id];
             });

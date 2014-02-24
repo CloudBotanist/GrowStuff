@@ -9,6 +9,9 @@ var express = require('express'),
     logger = require('mean-logger'),
     io = require('socket.io');
 
+// Newrelic environment
+require('newrelic');
+
 /**
  * Main application entry file.
  * Please note that the order of loading is important.

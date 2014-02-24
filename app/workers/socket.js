@@ -59,8 +59,9 @@ module.exports.init = function(sio) {
         });
 
         socket.on('status', function(data) {
+            console.log(data.toString());
+
             var status = JSON.parse(data);
-            console.log(status.toString());
 
             retrievePlantFromSocket(socket, function(err, plant) {
                 if (!plant) {

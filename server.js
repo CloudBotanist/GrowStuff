@@ -9,9 +9,6 @@ var express = require('express'),
     logger = require('mean-logger'),
     io = require('socket.io');
 
-// Newrelic environment
-require('newrelic');
-
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
@@ -20,6 +17,11 @@ require('newrelic');
 // Load configurations
 // Set the node enviornment variable if not set before
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+// Newrelic environment
+if(process.env.NODE_ENV !== 'development') {
+    require('config/newrelic');
+}
 
 // Initializing system variables
 

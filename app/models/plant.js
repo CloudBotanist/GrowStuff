@@ -46,7 +46,7 @@ PlantSchema.path('type').validate(function(type) {
 }, 'Le type ne peut être vide');
 
 PlantSchema.path('mode').validate(function(mode) {
-    return (mode === 'auto' || mode === 'manuel');
+    return (mode === 'auto' || mode === 'manual');
 }, 'Mode doit être soit "Manuel" soit "Auto"');
 
 /**

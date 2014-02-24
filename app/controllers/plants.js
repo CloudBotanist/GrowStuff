@@ -19,6 +19,9 @@ var async = require('async');
  */
 exports.plant = function(req, res, next, id) {
     Plant.load(id, function(err, plant) {
+        if (!plant) {
+            return res.send(404);
+        }
 
         async.parallel([
             function(cb) {
@@ -61,7 +64,7 @@ exports.create = function(req, res) {
 
     plant.save(function(err) {
         if (err) {
-            return res.render('new_plant', {
+            return res.render('plants/new', {
                 user: req.user,
                 errors: err.errors,
                 plant: plant

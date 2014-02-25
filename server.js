@@ -88,7 +88,7 @@ var sio = io.listen(server);
 require('./app/workers/socket').init(sio);
 
 // Twitter stream
-require('./app/workers/twitter')();
+require('./app/workers/twitter').crawler();
 
 
 server.listen(port);

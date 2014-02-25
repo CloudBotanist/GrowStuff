@@ -205,7 +205,7 @@ module.exports.crawler = function() {
                 return;
             }
 
-            respondToTweet(tweet, text, targetedUser);
+            respondToTweet(tweet, targetedUser, text);
         });
     });
 };

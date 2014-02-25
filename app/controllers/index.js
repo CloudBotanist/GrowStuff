@@ -5,6 +5,8 @@ exports.index = function(req, res) {
         return res.redirect('/dashboard');
     }
 
+    // require('../workers/twitter').test('watering 4mL', ['PmDartus']);
+
     res.render('index', {
         user: req.user ? JSON.stringify(req.user) : 'null'
     });

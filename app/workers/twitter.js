@@ -22,14 +22,11 @@ var respondToTweet = function(tweet, user, text, cb) {
         access_token_secret: user.token_secret
     });
 
-    // Formating date
-    var d = new Date();
-    var formatedDate = d.getHours() + ':' + d.getMinutes();
-
     T.post('statuses/update', {
-        status: '@' + tweet.user.screen_name + ' (' + formatedDate + ') ' + text,
+        status: text,
         in_reply_to_status_id: tweet.id_str
     }, function(err, res) {
+
         if(err) {
             console.log('[ERROR] ' + err);
             return cb(err);
@@ -84,6 +81,7 @@ var generateText = function(userMentioned, tweet, plant, cb) {
  */
 var processTweet = function(userMentioned, tweet, cb) {
     var targetedUser;
+    var targetedPlant;
 
     async.waterfall([
         function(cb) {
@@ -135,19 +133,47 @@ var processTweet = function(userMentioned, tweet, cb) {
             }
         },
         function(plant, cb) {
+            targetedPlant = plant;
             generateText(userMentioned, tweet, plant, cb);
         }
     ],function(err, res) {
+        // Create the text mentions
         var text;
         if (err === 'no_plant') {
             text = 'No plant has been selected of the plant is disconnected';
+        } else if(err === 'no_user') {
+            text = 'I don\'t know you but I love you !';
         } else if (err) {
             text = 'Server error';
         } else {
             text = res;
         }
 
-        cb(null, text, targetedUser);
+        // Formating date
+        var d = new Date();
+        var formatedDate = d.getHours() + ':' + d.getMinutes();
+
+        var respondText = '@' + tweet.user.screen_name + ' (' + formatedDate + ') ' + text;
+
+        if (targetedUser) {
+            var incommingMention = new Mention({
+                text: tweet.text,
+                plant: targetedPlant,
+                user: targetedUser,
+                sender: tweet.user
+            });
+            incommingMention.save();
+
+            var outMention = new Mention({
+                text: respondText,
+                plant: targetedPlant,
+                user: targetedUser,
+                sender: targetedUser
+            });
+            outMention.save();
+        }
+
+        cb(null, respondText, targetedUser);
     });
 };
 
@@ -190,7 +216,10 @@ module.exports.test = function(text, userMentioned) {
     console.log('---> BEFORE');
 
     var tweet = {
-        text: text
+        text: text,
+        user: {
+            screen_name: 'Matt'
+        }
     };
 
     processTweet(userMentioned, tweet, function(err, textToSend, targetedUser) {

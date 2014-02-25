@@ -39,7 +39,7 @@ var respondToTweet = function(tweet, user, text, cb) {
             console.log('[ERROR] ' + err);
             return cb(err);
         } else {
-            return (null, res);
+            return cb(null, res);
         }
     });
 };

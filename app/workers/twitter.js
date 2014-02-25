@@ -15,6 +15,14 @@ var mongoose = require('mongoose'),
  *  Based on the context
  */
 var respondToTweet = function(tweet, user, text, cb) {
+    if (!user || !user.token || !user.token_secret) {
+        console.log('No user for');
+        if (tweet) {
+            console.log(tweet);
+        }
+        return cb('No user');
+    }
+
     var T = new Twit({
         consumer_key: process.env.TWITTER_CONSUMER_KEY,
         consumer_secret: process.env.TWITTER_CONSUMER_SECRET,

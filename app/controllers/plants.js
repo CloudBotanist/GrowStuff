@@ -47,7 +47,7 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
             async.map(photosUrl, function(photo, cb) {
 
                 request({
-                    url: 'https://api.dropbox.com/1/media/sandbox/'+ photo.path,
+                    url: 'https://api.dropbox.com/1/media/sandbox/'+ photo,
                     headers: {
                         'Authorization': 'Bearer ' + dropboxToken
                     }

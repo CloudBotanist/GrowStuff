@@ -11,8 +11,64 @@ var mongoose = require('mongoose'),
     _ = require('lodash');
 
 var async = require('async');
+var request = require('request');
 
+var dropboxToken = require('../../config/config').dropbox.access_token;
 
+/**
+ * Retrieve the photos from Dropbox and return public URLs
+ */
+var retrivePublicLinkPhotos = function(plantId, cb) {
+    async.waterfall([
+        function(cb) {
+            request({
+                url: 'https://api.dropbox.com/1/metadata/sandbox/'+ plantId.toString() +'?list=true',
+                headers: {
+                    'Authorization': 'Bearer ' + dropboxToken
+                }
+            }, function(err, _, body) {
+                if (err) {
+                    return cb(err);
+                }
+
+                cb(null, body.contents);
+            });
+        }, function(photos, cb) {
+            var publicPhotosUrl = [];
+
+            async.each(photos, 20, function(photo, cb) {
+                if (photo.is_dir) {
+                    return cb(null);
+                }
+
+                request({
+                    url: 'https://api.dropbox.com/1/media/sandbox/'+ photo.path,
+                    headers: {
+                        'Authorization': 'Bearer ' + dropboxToken
+                    }
+                }, function(err, _, body) {
+                    if (err) {
+                        return cb(err);
+                    }
+
+                    publicPhotosUrl.push(body.url);
+                    cb(null);
+                });
+            }, function(err) {
+                console.log(err);
+            });
+
+            cb(null, publicPhotosUrl);
+        }
+    ], function(err, publicPhotosUrl) {
+        if (err) {
+            console.log(err);
+            return cb(null, []);
+        }
+
+        cb(null, publicPhotosUrl);
+    });
+};
 
 /**
  * Find plant by id
@@ -32,10 +88,14 @@ exports.plant = function(req, res, next, id) {
             },
             function(cb) {
                 Status.find({plant: plant.id}).sort({created: -1}).limit(100).exec(cb);
+            },
+            function(cb) {
+                retrivePublicLinkPhotos(plant.id, cb);
             }
         ],
             function(err, results){
                 if (err) {
+                    console.log(err);
                     res.render('error', {
                         status: 500
                     });
@@ -46,6 +106,7 @@ exports.plant = function(req, res, next, id) {
                 newPlant.is_connected = results[0];
                 newPlant.mentions = results[1];
                 newPlant.status = results[2];
+                newPlant.photos = results[3];
 
                 req.plant = newPlant;
                 next();

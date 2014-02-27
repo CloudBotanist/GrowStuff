@@ -18,11 +18,8 @@
         <div class="col-lg-12">
             <div class="page-title">
                 <div class="btn-group" style="float:right">
-                    <div class="btn-group {% if !plant.is_connected %}disabled{% endif %}">
-                        <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
-                            Watering
-                            <span class="caret"></span>
-                        </button>
+                    <div class="{% if !plant.is_connected %}disabled{% endif %}">
+                        
                         <ul class="dropdown-menu">
                             {% for value in [5, 10, 15, 20] %}
                             <li>
@@ -55,7 +52,9 @@
 
     <!-- begin DASHBOARD CIRCLE TILES -->
     <div class="row">
+        <div class="col-lg-8 col-sm-12">
 
+    <div class="row">
         <div class="col-lg-4 col-sm-12">
             <div class="circle-tile">
                 <a href="#">
@@ -70,7 +69,14 @@
                     <div id="easy-pie-1" class="easy-pie-chart" data-percent="{{plant.status[0].hum}}">
                         <span class="percent"></span>
                     </div>
-                    <br><br><br>
+                    <br><br>
+                    <div align="center">
+                    <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
+                        Water it
+                        <span class="caret"></span>
+                    </button>
+                    </div>
+                    <br>
 
                 </div>
             </div>
@@ -159,6 +165,38 @@
             </div>
         </div>
     </div>
+
+    </div>
+    <div class="col-lg-4 col-sm-12">
+        <div class="circle-tile">
+            <a href="#">
+                <div class="circle-tile-heading">
+                    <i class="fa fa-instagram fa-fw fa-3x"></i>
+                </div>
+            </a>
+            <div class="circle-tile-content" style="padding:0px">
+                
+                <div id="myCarousel" class="carousel slide">
+                  <ol class="carousel-indicators">
+                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                  </ol>
+                  <!-- Carousel items -->
+                  <div class="carousel-inner">
+                    <div class="active item"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
+                    <div class="item"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
+                    <div class="item"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
+                  </div>
+                  <!-- Carousel nav -->
+                  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                </div>
+            </div>
+        </div>
+</div>
+
+
     <!-- end DASHBOARD CIRCLE TILES -->
 
     <div class="row">

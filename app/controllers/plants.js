@@ -36,6 +36,9 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 cb(null, resp.contents);
             });
         }, function(photos, cb) {
+            if (!photos || photos.length === 0) {
+                return cb(null, []);
+            }
 
             var photosUrl = [];
             photos.forEach(function(photo) {

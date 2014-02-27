@@ -36,7 +36,8 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 cb(null, resp.contents);
             });
         }, function(photos, cb) {
-            console.log("Mes photos" + photos.toString());
+            console.log("Mes photos " + photos.toString());
+            console.log("Mes photos " + JSON.stringify(photos));
 
             var publicPhotosUrl = [];
             async.each(photos, 20, function(photo, cb) {

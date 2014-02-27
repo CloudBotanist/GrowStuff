@@ -36,14 +36,18 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 cb(null, resp.contents);
             });
         }, function(photos, cb) {
-            console.log("Mes photos " + photos.toString());
-            console.log("Mes photos " + JSON.stringify(photos));
+
+            var photosUrl = [];
+            photos.forEach(function(photo) {
+                if (!photo.is_dir) {
+                    photosUrl.push(photo.path);
+                }
+            });
+
+            console.log("extractedUrl" + JSON.stringify(photosUrl));
 
             var publicPhotosUrl = [];
-            async.each(photos, 20, function(photo, cb) {
-                if (photo.is_dir) {
-                    return cb(null);
-                }
+            async.map(photosUrl, function(photo, cb) {
 
                 request({
                     url: 'https://api.dropbox.com/1/media/sandbox/'+ photo.path,
@@ -59,11 +63,7 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     publicPhotosUrl.push(resp.url);
                     cb(null);
                 });
-            }, function(err) {
-                console.log(err);
-            });
-
-            cb(null, publicPhotosUrl);
+            }, cb);
         }
     ], function(err, publicPhotosUrl) {
         if (err) {

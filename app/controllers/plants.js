@@ -19,6 +19,7 @@ var dropboxToken = require('../../config/config').dropbox.access_token;
  * Retrieve the photos from Dropbox and return public URLs
  */
 var retrivePublicLinkPhotos = function(plantId, cb) {
+    console.log('Retrieve Photo from Dropbox')
     async.waterfall([
         function(cb) {
             request({
@@ -31,6 +32,7 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     return cb(err);
                 }
 
+                console.log("body " + body.toString());
                 cb(null, body.contents);
             });
         }, function(photos, cb) {

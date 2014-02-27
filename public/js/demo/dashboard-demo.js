@@ -45,32 +45,46 @@ $(document).ready(function() {
     });
 
     //Morris Area Chart
+    var hum_data = new Array();
+    var temp_data = new Array();
+    var light_data = new Array();
     console.log(plantStatus);
-    var sales_data = new Array();
     for(i=0; i < plantStatus.length; i++){
-        sales_data[i] = {
+        hum_data[i] = {
             date: plantStatus[i].created.split(".")[0].replace("T"," "),
-            hum: plantStatus[i].hum};
+            val: plantStatus[i].hum
+        };
+        temp_data[i] = {
+            date: plantStatus[i].created.split(".")[0].replace("T"," "),
+            val: plantStatus[i].tmp
+        };
+        light_data[i] = {
+            date: plantStatus[i].created.split(".")[0].replace("T"," "),
+            val: plantStatus[i].light
+        };
     }
-    
-    Morris.Area({
-        element: 'morris-chart-dashboard',
-        data: sales_data,
+    console.log(hum_data);
+    console.log(temp_data);
+    console.log(light_data);
+
+    temp_chart = Morris.Area({
+        element: 'morris-chart-temperature',
+        data: temp_data,
         xkey: 'date',
         xLabelFormat: function(date) {
             return (d.getHours() + ":"+ d.getMinutes() + ":" +d.getSeconds());
         },
         xLabels: 'day',
-        ykeys: ['hum',],
+        ykeys: ['val'],
         yLabelFormat: function(y) {
             return y;
         },
-        labels: ['Humidity'],
-        lineColors: ['#fff'],
+        labels: ['Temperature'],
+        lineColors: ['#289F8B'],
         hideHover: 'auto',
         resize: true,
         gridTextFamily: ['Open Sans'],
-        gridTextColor: ['rgba(255,255,255,0.7)'],
+        gridTextColor: ['#289F8B'],
         fillOpacity: 0.1,
         pointSize: 0,
         smooth: true,
@@ -80,5 +94,69 @@ $(document).ready(function() {
             d = new Date(date);
             return (d.getHours() + ":"+ d.getMinutes() + ":" +d.getSeconds());
         }
+    });
+
+    hum_chart = Morris.Area({
+        element: 'morris-chart-humidity',
+        data: hum_data,
+        xkey: 'date',
+        xLabelFormat: function(date) {
+            return (d.getHours() + ":"+ d.getMinutes() + ":" +d.getSeconds());
+        },
+        xLabels: 'day',
+        ykeys: ['val'],
+        yLabelFormat: function(y) {
+            return y;
+        },
+        labels: ['Humidity'],
+        lineColors: ['#289F8B'],
+        hideHover: 'auto',
+        resize: true,
+        gridTextFamily: ['Open Sans'],
+        gridTextColor: ['#289F8B'],
+        fillOpacity: 0.1,
+        pointSize: 0,
+        smooth: true,
+        lineWidth: 2,
+        grid: true,
+        dateFormat: function(date) {
+            d = new Date(date);
+            return (d.getHours() + ":"+ d.getMinutes() + ":" +d.getSeconds());
+        }
+    });
+    light_chart = Morris.Area({
+        element: 'morris-chart-brightness',
+        data: light_data,
+        xkey: 'date',
+        xLabelFormat: function(date) {
+            return (d.getHours() + ":"+ d.getMinutes() + ":" +d.getSeconds());
+        },
+        xLabels: 'day',
+        ykeys: ['val'],
+        yLabelFormat: function(y) {
+            return y;
+        },
+        labels: ['Brightness'],
+        lineColors: ['#289F8B'],
+        hideHover: 'auto',
+        resize: true,
+        gridTextFamily: ['Open Sans'],
+        gridTextColor: ['#289F8B'],
+        fillOpacity: 0.1,
+        pointSize: 0,
+        smooth: true,
+        lineWidth: 2,
+        grid: true,
+        dateFormat: function(date) {
+            d = new Date(date);
+            return (d.getHours() + ":"+ d.getMinutes() + ":" +d.getSeconds());
+        }
+    });
+    $('ul.nav a').on('shown.bs.tab', function (e) {
+        var types = "light_chart, hum_chart,temp_chart";
+        var typesArray = types.split(",");
+        $.each(typesArray, function (key, value) {
+            eval(value + ".redraw()");
+        })
     });
 });

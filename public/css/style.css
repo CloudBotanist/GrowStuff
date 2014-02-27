@@ -65,6 +65,10 @@ a:focus {
 
 /* Use these to cuztomize the background color of a div. These are used along with tiles, or any other div you want to customize. */
 
+.tab-pane svg{
+    width:100%;
+}
+
  .dark-blue {
     background-color: #289F8B;
 }
@@ -518,7 +522,7 @@ a:focus {
 .navbar-side .side-user .welcome {
     margin: 0;
     font-style: italic;
-    color: #9aa4af;
+    color: #c8d6e5;
 }
 
 .navbar-side .side-user .welcome .fa {

@@ -20,7 +20,7 @@
                 <div class="btn-group" style="float:right">
                     <div class="btn-group {% if !plant.is_connected %}disabled{% endif %}">
                         <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
-                            Arroser
+                            Watering
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
@@ -31,7 +31,7 @@
                             {% endfor %}
                         </ul>
                     </div>
-                    <a class="btn btn-red" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Êtes-vous sûrs ?');">Supprimer</a>
+                    <a class="btn btn-red" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Êtes-vous sûrs ?');">Remove</a>
                 </div>
 
                 <h1>
@@ -65,7 +65,7 @@
                 </a>
                 <div class="circle-tile-content blue">
                     <div class="circle-tile-description text-faded">
-                        Humidité
+                        Humidity
                     </div>
                     <div id="easy-pie-1" class="easy-pie-chart" data-percent="{{plant.status[0].hum}}">
                         <span class="percent"></span>
@@ -84,13 +84,13 @@
                 </a>
                 <div class="circle-tile-content green">
                     <div class="circle-tile-description text-faded">
-                        Présence eau
+                        Water presence
                     </div>
                     <div class="circle-tile-number text-faded">
                         {% if plant.status[0].water_presence %}
-                            Oui
+                            Yes
                         {% else %}
-                            Non
+                            No
                         {% endif %}
 
                     </div>
@@ -107,7 +107,7 @@
                 </a>
                 <div class="circle-tile-content orange">
                     <div class="circle-tile-description text-faded">
-                        Ensoleillement
+                        Brightness
                     </div>
                     <div class="circle-tile-number text-faded">
                         {{plant.status[0].light}}
@@ -125,7 +125,7 @@
                 </a>
                 <div class="circle-tile-content purple">
                     <div class="circle-tile-description text-faded">
-                        Humeur
+                        Mood
                     </div>
                     <div class="circle-tile-number text-faded">
                         {% if plant.status[0].hum < 10 %}
@@ -133,7 +133,7 @@
                         {% elseif plant.status[0].hum >= 10 && plant.status[0].hum < 75 %}
                         Chill out
                         {% else %}
-                        Full
+                        Saturated
                         {% endif %}
                     </div>
 
@@ -162,10 +162,41 @@
     <!-- end DASHBOARD CIRCLE TILES -->
 
     <div class="row">
+        <div class="col-lg-8">
+            <div class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4><i class="fa fa-bar-chart-o"></i> Evolution</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="portlet-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a href="#temperature" data-toggle="tab"><i class="fa fa-fire"></i> Temperature</a></li>
+                      <li><a href="#humidity" data-toggle="tab"><i class="fa fa-tint"></i> Humidity</a></li>
+                      <li><a href="#brightness" data-toggle="tab"><i class="fa fa-sun-o"></i> Brightness</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="temperature">
+                        <div id="morris-chart-temperature"></div>
+                      </div>
+                      <div class="tab-pane" id="humidity">
+                        <div id="morris-chart-humidity"></div>
+                      </div>
+                      <div class="tab-pane" id="brightness">
+                        <div id="morris-chart-brightness"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-4">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="portlet portlet-default"  style="height: 340px">
+                    <div class="portlet portlet-default">
                         <div class="portlet-heading">
                             <div class="portlet-title">
                                 <h4><i class="fa fa-twitter"></i> Twitter feeds</h4>
@@ -200,33 +231,8 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="tile dark-blue" style="height: 340px">
-                        <h4><i class="fa fa-tint"></i> Humidity <a href="javascript:;"><i class="fa fa-refresh pull-right"></i></a>
-                        </h4>
-                        <div id="morris-chart-dashboard"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="tile orange" style="height: 320px">
-                    <h4><i class="fa fa-tint"></i> Temperature <a href="javascript:;"><i class="fa fa-refresh pull-right"></i></a>
-                    </h4>
-                    <div id="morris-chart-temperature"></div>
-                </div>
-            </div>
-
-        </div>
-
     </div>
     <!-- /.row -->
 </div>

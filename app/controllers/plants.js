@@ -19,7 +19,6 @@ var dropboxToken = require('../../config/config').dropbox.access_token;
  * Retrieve the photos from Dropbox and return public URLs
  */
 var retrivePublicLinkPhotos = function(plantId, cb) {
-    console.log('Retrieve Photo from Dropbox')
     async.waterfall([
         function(cb) {
             request({
@@ -32,7 +31,6 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     return cb(err);
                 }
 
-                console.log("body " + body.toString());
                 cb(null, body.contents);
             });
         }, function(photos, cb) {
@@ -40,11 +38,16 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 return cb(null, []);
             }
 
+            console.log("Photos " + photos);
+
             var publicPhotosUrl = [];
             async.each(photos, 20, function(photo, cb) {
+                console.log("1");
                 if (photo.is_dir) {
                     return cb(null);
                 }
+
+                console.log("2");
 
                 request({
                     url: 'https://api.dropbox.com/1/media/sandbox/'+ photo.path,
@@ -55,6 +58,7 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     if (err) {
                         return cb(err);
                     }
+                    console.log("2");
 
                     publicPhotosUrl.push(body.url);
                     cb(null);

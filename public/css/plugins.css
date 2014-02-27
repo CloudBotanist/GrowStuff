@@ -328,6 +328,8 @@ transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     width: 110px;
     height: 110px;
     margin: 15px 0;
+    color:#289F8B;
+
     text-align: center;
 }
 
@@ -341,10 +343,13 @@ transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     display: inline-block;
     z-index: 2;
     line-height: 110px;
+    color:#289F8B !important;
 }
 
 .percent:after {
     content: '%';
     margin-left: 0.1em;
     font-size: .8em;
+    color:#289F8B !important;
+
 }

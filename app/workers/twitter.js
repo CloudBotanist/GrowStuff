@@ -20,7 +20,7 @@ var respondToTweet = function(tweet, user, text, cb) {
         if (tweet) {
             console.log(tweet);
         }
-        return cb('No user');
+        return;
     }
 
     var T = new Twit({
@@ -39,7 +39,7 @@ var respondToTweet = function(tweet, user, text, cb) {
             console.log('[ERROR] ' + err);
             return cb(err);
         } else {
-            return (null, res);
+            return cb(null, res);
         }
     });
 };
@@ -194,7 +194,7 @@ module.exports.crawler = function() {
         access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
     });
 
-    var stream = T.stream('statuses/filter', { track: '#gw' });
+    var stream = T.stream('statuses/filter', { track: '#growstuff' });
 
     console.log('Crawler twitter booted');
 

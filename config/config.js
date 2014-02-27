@@ -20,5 +20,8 @@ module.exports = {
         clientID: process.env.TWITTER_CONSUMER_KEY,
         clientSecret: process.env.TWITTER_CONSUMER_SECRET,
         callbackURL: process.env.TWITTER_CALLBACK_URL || 'http://localhost:3000/auth/twitter/callback'
+    },
+    dropbox: {
+        access_token: process.env.DROPBOX_ACCESS_TOKEN
     }
 };

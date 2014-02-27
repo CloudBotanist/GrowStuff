@@ -32,8 +32,8 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     return cb(err);
                 }
 
-                console.log(body);
-                cb(null, body.contents);
+                var resp = JSON.parse(body);
+                cb(null, resp.contents);
             });
         }, function(photos, cb) {
             console.log(photos);
@@ -55,7 +55,8 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                         return cb(err);
                     }
 
-                    publicPhotosUrl.push(body.url);
+                    var resp = JSON.parse(body);
+                    publicPhotosUrl.push(resp.url);
                     cb(null);
                 });
             }, function(err) {

@@ -44,9 +44,6 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 }
             });
 
-            console.log("extractedUrl" + JSON.stringify(photosUrl));
-
-            var publicPhotosUrl = [];
             async.map(photosUrl, function(photo, cb) {
 
                 request({
@@ -60,8 +57,8 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     }
 
                     var resp = JSON.parse(body);
-                    publicPhotosUrl.push(resp.url);
-                    cb(null);
+                    console.log("Response :" + resp.url);
+                    cb(resp.url);
                 });
             }, cb);
         }

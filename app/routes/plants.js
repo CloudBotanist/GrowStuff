@@ -22,6 +22,7 @@ module.exports = function(app) {
     app.put('/plants/:plantsId', authorization.requiresLogin, hasAuthorization, plants.update);
     app.get('/plants/:plantsId/delete', authorization.requiresLogin, hasAuthorization, plants.destroy);
     app.get('/plants/:plantsId/watering', authorization.requiresLogin, hasAuthorization, plants.watering);
+    app.get('/plants/:plantsId/picture', authorization.requiresLogin, hasAuthorization, plants.picture);
 
     // Finish with setting up the articleId param
     app.param('plantsId', plants.plant);

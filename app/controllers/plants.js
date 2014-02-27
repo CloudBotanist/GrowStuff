@@ -236,6 +236,17 @@ exports.watering = function(req, res) {
 };
 
 /**
+ *  Take a picture of the selected plant
+ */
+exports.picture = function(req, res) {
+    if (req.plant.is_connected) {
+        sockets.sendMessage(req.plant._id, 'picture', {});
+    }
+
+    res.redirect('/plants/' + req.plant._id);
+};
+
+/**
  * List of Plants
  */
 exports.all = function(req, res) {

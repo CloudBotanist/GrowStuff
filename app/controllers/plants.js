@@ -36,14 +36,13 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 cb(null, resp.contents);
             });
         }, function(photos, cb) {
-            console.log(photos);
+            console.log("Mes photos" + photos.toString());
 
             var publicPhotosUrl = [];
             async.each(photos, 20, function(photo, cb) {
                 if (photo.is_dir) {
                     return cb(null);
                 }
-
 
                 request({
                     url: 'https://api.dropbox.com/1/media/sandbox/'+ photo.path,

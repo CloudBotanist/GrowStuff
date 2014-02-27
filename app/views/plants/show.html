@@ -17,8 +17,11 @@ window.plantStatus = {{JSON.stringify(plant.status)|safe}};
 <div class="row">
     <div class="col-lg-12">
         <div class="page-title">
-            <div class="btn-group" style="float:right">
-                <a class="btn btn-red" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Êtes-vous sûrs ?');">Remove</a>
+            <div style="float:right">
+
+                <button type="button" class="btn btn-red dark-blue" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Are you sure ?');"> <i class="fa fa-trash-o"></i> Remove</button>
+
+
             </div>
 
             <h1>
@@ -60,22 +63,20 @@ window.plantStatus = {{JSON.stringify(plant.status)|safe}};
                             <span class="percent"></span>
                         </div>
                         <br><br>
-                        <div align="center btn-group">
-
+                        <div class="btn-group">
                             <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
-                                Water it
+                                <i class="fa fa-tint"></i> Water it
                                 <span class="caret"></span>
-                            </button>
+                            </button> 
                             <ul class="dropdown-menu" role="menu">
                                 {% for value in [5, 10, 15, 20] %}
                                 <li>
                                     <a href="/plants/{{plant._id.toString()}}/watering?time={{value}}">{{value}} mL</a>
                                 </li>
                                 {% endfor %}
-                            </ul>
-
-
+                            </ul> 
                         </div>
+                        <br>
                         <br>
 
                     </div>
@@ -175,6 +176,8 @@ window.plantStatus = {{JSON.stringify(plant.status)|safe}};
                 </div>
             </a>
             <div class="circle-tile-content" style="padding:0px">
+                <div class="btn-picture">
+                <button type="button" class="btn btn-green" onclick="return confirm('Take picture');"> <i class="fa fa-instagram"></i> Take picture now</button></div>
 
                 <div id="myCarousel" class="carousel slide">
                   <ol class="carousel-indicators">

@@ -56,6 +56,7 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                         return cb(err);
                     }
 
+                    console.log(body);
                     var resp = JSON.parse(body);
                     console.log("Response :" + resp.url);
                     cb(resp.url);

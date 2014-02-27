@@ -2,170 +2,169 @@
 
 {% block content %}
 
-    <script type="text/javascript">
-    window.plantStatus = {{JSON.stringify(plant.status)|safe}};
-    window.plantPhoto = {{JSON.stringify(plant.photos)|safe}};
-    </script>
+<script type="text/javascript">
+window.plantStatus = {{JSON.stringify(plant.status)|safe}};
+</script>
 
-    {% for error in errors %}
-    <div class="alert alert-danger">
-        {{error.message}}
-    </div>
-    {% endfor %}
+{% for error in errors %}
+<div class="alert alert-danger">
+    {{error.message}}
+</div>
+{% endfor %}
 
-    <!-- begin PAGE TITLE AREA -->
-    <!-- Use this section for each page's title and breadcrumb layout. In this example a date range picker is included within the breadcrumb. -->
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="page-title">
-                <div class="btn-group" style="float:right">
-                    <div class="{% if !plant.is_connected %}disabled{% endif %}">
-                        
-                        <ul class="dropdown-menu">
-                            {% for value in [5, 10, 15, 20] %}
-                            <li>
-                                <a href="/plants/{{plant._id.toString()}}/watering?time={{value}}">{{value}} mL</a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <a class="btn btn-red" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Êtes-vous sûrs ?');">Remove</a>
-                </div>
-
-                <h1>
-                    #{{plant.name}}
-                    <small>{{plant.type}}</small>
-                </h1>
-                <p>
-                    {% if plant.is_connected %}
-                        <span class="label green">Connected</span>
-                    {% else %}
-                        <span class="label orange">Disconnected</span>
-                    {% endif %}
-                    - Last Update {{plant.status[0].created|date('d/m/Y H:i')}}
-                </p>
+<!-- begin PAGE TITLE AREA -->
+<!-- Use this section for each page's title and breadcrumb layout. In this example a date range picker is included within the breadcrumb. -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="page-title">
+            <div class="btn-group" style="float:right">
+                <a class="btn btn-red" href="/plants/{{plant._id.toString()}}/delete" onclick="return confirm('Êtes-vous sûrs ?');">Remove</a>
             </div>
+
+            <h1>
+                #{{plant.name}}
+                <small>{{plant.type}}</small>
+            </h1>
+            <p>
+                {% if plant.is_connected %}
+                <span class="label green">Connected</span>
+                {% else %}
+                <span class="label orange">Disconnected</span>
+                {% endif %}
+                - Last Update {{plant.status[0].created|date('d/m/Y H:i')}}
+            </p>
         </div>
-        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.row -->
-    <!-- end PAGE TITLE AREA -->
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+<!-- end PAGE TITLE AREA -->
 
-    <!-- begin DASHBOARD CIRCLE TILES -->
-    <div class="row">
-        <div class="col-lg-8 col-sm-12">
+<!-- begin DASHBOARD CIRCLE TILES -->
+<div class="row">
+    <div class="col-lg-8 col-sm-12">
 
-    <div class="row">
-        <div class="col-lg-4 col-sm-12">
-            <div class="circle-tile">
-                <a href="#">
-                    <div class="circle-tile-heading">
-                        <i class="fa fa-tint fa-fw fa-3x"></i>
-                    </div>
-                </a>
-                <div class="circle-tile-content">
-                    <div class="circle-tile-description text-faded">
-                        Humidity
-                    </div>
-                    <div id="easy-pie-1" class="easy-pie-chart" data-percent="{{plant.status[0].hum}}">
-                        <span class="percent"></span>
-                    </div>
-                    <br><br>
-                    <div align="center">
-                    <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
-                        Water it
-                        <span class="caret"></span>
-                    </button>
-                    </div>
-                    <br>
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading">
+                            <i class="fa fa-tint fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content">
+                        <div class="circle-tile-description text-faded">
+                            Humidity
+                        </div>
+                        <div id="easy-pie-1" class="easy-pie-chart" data-percent="{{plant.status[0].hum}}">
+                            <span class="percent"></span>
+                        </div>
+                        <br><br>
+                        <div align="center">
+                            <ul class="dropdown-menu">
+                                {% for value in [5, 10, 15, 20] %}
+                                <li>
+                                    <a href="/plants/{{plant._id.toString()}}/watering?time={{value}}">{{value}} mL</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
 
+                            <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
+                                Water it
+                                <span class="caret"></span>
+                            </button>
+
+
+                        </div>
+                        <br>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-            <div class="circle-tile">
-                <a href="#">
-                    <div class="circle-tile-heading">
-                        <i class="fa fa-beer fa-fw fa-3x"></i>
-                    </div>
-                </a>
-                <div class="circle-tile-content">
-                    <div class="circle-tile-description text-faded">
-                        Water presence
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        {% if plant.status[0].water_presence %}
+            <div class="col-lg-4 col-sm-6">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading">
+                            <i class="fa fa-beer fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content">
+                        <div class="circle-tile-description text-faded">
+                            Water presence
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            {% if plant.status[0].water_presence %}
                             Yes
-                        {% else %}
+                            {% else %}
                             No
-                        {% endif %}
+                            {% endif %}
+
+                        </div>
 
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading">
+                            <i class="fa fa-sun-o fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content">
+                        <div class="circle-tile-description text-faded">
+                            Brightness
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            {{plant.status[0].light}}
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading">
+                            <i class="fa fa-smile-o fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content">
+                        <div class="circle-tile-description text-faded">
+                            Mood
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            {% if plant.status[0].hum < 10 %}
+                            Thirsty
+                            {% elseif plant.status[0].hum >= 10 && plant.status[0].hum < 75 %}
+                            Chill out
+                            {% else %}
+                            Saturated
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="circle-tile">
+                    <a href="#">
+                        <div class="circle-tile-heading">
+                            <i class="fa fa-fire fa-fw fa-3x"></i>
+                        </div>
+                    </a>
+                    <div class="circle-tile-content">
+                        <div class="circle-tile-description text-faded">
+                            Temperature
+                        </div>
+                        <div class="circle-tile-number text-faded">
+                            {{plant.status[0].tmp}}°C
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-sm-6">
-            <div class="circle-tile">
-                <a href="#">
-                    <div class="circle-tile-heading">
-                        <i class="fa fa-sun-o fa-fw fa-3x"></i>
-                    </div>
-                </a>
-                <div class="circle-tile-content">
-                    <div class="circle-tile-description text-faded">
-                        Brightness
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        {{plant.status[0].light}}
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-            <div class="circle-tile">
-                <a href="#">
-                    <div class="circle-tile-heading">
-                        <i class="fa fa-smile-o fa-fw fa-3x"></i>
-                    </div>
-                </a>
-                <div class="circle-tile-content">
-                    <div class="circle-tile-description text-faded">
-                        Mood
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        {% if plant.status[0].hum < 10 %}
-                        Thirsty
-                        {% elseif plant.status[0].hum >= 10 && plant.status[0].hum < 75 %}
-                        Chill out
-                        {% else %}
-                        Saturated
-                        {% endif %}
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-sm-6">
-            <div class="circle-tile">
-                <a href="#">
-                    <div class="circle-tile-heading">
-                        <i class="fa fa-fire fa-fw fa-3x"></i>
-                    </div>
-                </a>
-                <div class="circle-tile-content">
-                    <div class="circle-tile-description text-faded">
-                        Temperature
-                    </div>
-                    <div class="circle-tile-number text-faded">
-                        {{plant.status[0].tmp}}°C
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
     </div>
     <div class="col-lg-4 col-sm-12">
@@ -176,104 +175,110 @@
                 </div>
             </a>
             <div class="circle-tile-content" style="padding:0px">
-                
+
                 <div id="myCarousel" class="carousel slide">
                   <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                  </ol>
-                  <!-- Carousel items -->
-                  <div class="carousel-inner">
-                    <div class="active item"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
-                    <div class="item"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
-                    <div class="item"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
-                  </div>
-                  <!-- Carousel nav -->
-                  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                    {% for photo in plant.photos %}
+
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                    {% endfor %}
+                </ol>
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    {% for photo in plant.photos %}
+                    <div class="item {% if loop.first %}active{% endif %}"><div class="selfie" style="background-image:url('{{photo}}')"></div></div>
+                    {% endfor %}
+
+                    {% if plant.photos.length == 0 %}
+                    <div class="item active"><div class="selfie" style="background-image:url('http://b.vimeocdn.com/ts/456/207/456207540_640.jpg')"></div></div>
+                    {% endif %}
+
                 </div>
+                <!-- Carousel nav -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div>
         </div>
+    </div>
 </div>
 
 
-    <!-- end DASHBOARD CIRCLE TILES -->
+<!-- end DASHBOARD CIRCLE TILES -->
 
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="portlet portlet-default">
-                <div class="portlet-heading">
-                    <div class="portlet-title">
-                        <h4><i class="fa fa-bar-chart-o"></i> Evolution</h4>
-                    </div>
-                    <div class="clearfix"></div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="portlet portlet-default">
+            <div class="portlet-heading">
+                <div class="portlet-title">
+                    <h4><i class="fa fa-bar-chart-o"></i> Evolution</h4>
                 </div>
-                <div class="portlet-body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs">
-                      <li class="active"><a href="#temperature" data-toggle="tab"><i class="fa fa-fire"></i> Temperature</a></li>
-                      <li><a href="#humidity" data-toggle="tab"><i class="fa fa-tint"></i> Humidity</a></li>
-                      <li><a href="#brightness" data-toggle="tab"><i class="fa fa-sun-o"></i> Brightness</a></li>
-                    </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="portlet-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#temperature" data-toggle="tab"><i class="fa fa-fire"></i> Temperature</a></li>
+                  <li><a href="#humidity" data-toggle="tab"><i class="fa fa-tint"></i> Humidity</a></li>
+                  <li><a href="#brightness" data-toggle="tab"><i class="fa fa-sun-o"></i> Brightness</a></li>
+              </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                      <div class="tab-pane active" id="temperature">
-                        <div id="morris-chart-temperature"></div>
-                      </div>
-                      <div class="tab-pane" id="humidity">
-                        <div id="morris-chart-humidity"></div>
-                      </div>
-                      <div class="tab-pane" id="brightness">
-                        <div id="morris-chart-brightness"></div>
-                      </div>
-                    </div>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                  <div class="tab-pane active" id="temperature">
+                    <div id="morris-chart-temperature"></div>
+                </div>
+                <div class="tab-pane" id="humidity">
+                    <div id="morris-chart-humidity"></div>
+                </div>
+                <div class="tab-pane" id="brightness">
+                    <div id="morris-chart-brightness"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="portlet portlet-default">
-                        <div class="portlet-heading">
-                            <div class="portlet-title">
-                                <h4><i class="fa fa-twitter"></i> Twitter feeds</h4>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div id="chat" class="panel-collapse collapse in">
-                            <div class="portlet-body chat-widget">
-                                {% for mention in plant.mentions %}
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="media">
-                                            <a class="pull-left" href="#">
-                                                <img class="media-object img-circle" src="{{mention.sender.profile_image_url}}" alt="">
-                                            </a>
-                                            <div class="media-body">
-                                                <h4 class="media-heading">{{mention.sender.name}}
-                                                    <span class="small pull-right">{{mention.created|date('d/m/Y H:i')}}</span>
-                                                </h4>
-                                                <p>{{mention.text}}</p>
-                                            </div>
-                                        </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="portlet portlet-default">
+                <div class="portlet-heading">
+                    <div class="portlet-title">
+                        <h4><i class="fa fa-twitter"></i> Twitter feeds</h4>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div id="chat" class="panel-collapse collapse in">
+                    <div class="portlet-body chat-widget">
+                        {% for mention in plant.mentions %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="media">
+                                    <a class="pull-left" href="#">
+                                        <img class="media-object img-circle" src="{{mention.sender.profile_image_url}}" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">{{mention.sender.name}}
+                                            <span class="small pull-right">{{mention.created|date('d/m/Y H:i')}}</span>
+                                        </h4>
+                                        <p>{{mention.text}}</p>
                                     </div>
                                 </div>
-                                <hr>
-                                {% endfor %}
-
-                                {% if plant.mentions.length == 0 %}
-                                No mention yet
-                                {% endif %}
                             </div>
                         </div>
+                        <hr>
+                        {% endfor %}
+
+                        {% if plant.mentions.length == 0 %}
+                        No mention yet
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /.row -->
+</div>
+</div>
+<!-- /.row -->
 </div>
 <!-- /#wrapper -->
 {% endblock %}

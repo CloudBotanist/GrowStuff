@@ -28,24 +28,26 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                 }
             }, function(err, _, body) {
                 if (err) {
+                    console.log(err);
                     return cb(err);
                 }
 
-                cb(null, body.contents);
+                var resp = JSON.parse(body);
+                cb(null, resp.contents);
             });
         }, function(photos, cb) {
-            if (_.isEmpty(photos)) {
-                return cb(null, []);
-            }
 
-            var publicPhotosUrl = [];
-            async.each(photos, 20, function(photo, cb) {
-                if (photo.is_dir) {
-                    return cb(null);
+            var photosUrl = [];
+            photos.forEach(function(photo) {
+                if (!photo.is_dir) {
+                    photosUrl.push(photo.path);
                 }
+            });
+
+            async.map(photosUrl, function(photo, cb) {
 
                 request({
-                    url: 'https://api.dropbox.com/1/media/sandbox/'+ photo.path,
+                    url: 'https://api.dropbox.com/1/media/sandbox/'+ photo,
                     headers: {
                         'Authorization': 'Bearer ' + dropboxToken
                     }
@@ -54,14 +56,10 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                         return cb(err);
                     }
 
-                    publicPhotosUrl.push(body.url);
-                    cb(null);
+                    var resp = JSON.parse(body);
+                    cb(null, resp.url);
                 });
-            }, function(err) {
-                console.log(err);
-            });
-
-            cb(null, publicPhotosUrl);
+            }, cb);
         }
     ], function(err, publicPhotosUrl) {
         if (err) {

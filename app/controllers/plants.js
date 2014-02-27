@@ -57,7 +57,6 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
                     }
 
                     var resp = JSON.parse(body);
-                    console.log("Response :" + resp.url);
                     cb(null, resp.url);
                 });
             }, cb);
@@ -68,7 +67,6 @@ var retrivePublicLinkPhotos = function(plantId, cb) {
             return cb(null, []);
         }
 
-        console.log("Final :" + publicPhotosUrl);
         cb(null, publicPhotosUrl);
     });
 };

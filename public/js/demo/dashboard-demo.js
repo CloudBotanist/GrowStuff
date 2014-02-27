@@ -33,9 +33,9 @@ $(document).ready(function() {
 //Easy Pie Charts
 $(document).ready(function() {
     $('#easy-pie-1').easyPieChart({
-        barColor: "rgba(255,255,255,.5)",
-        trackColor: "rgba(255,255,255,.5)",
-        scaleColor: "rgba(255,255,255,.5)",
+        barColor: "rgba(40,159,139,.5)",
+        trackColor: "rgba(40,159,139,.5)",
+        scaleColor: "rgba(40,159,139,.5)",
         lineWidth: 20,
         animate: 1500,
         size: 175,

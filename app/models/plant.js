@@ -39,15 +39,15 @@ var PlantSchema = new Schema({
  */
 PlantSchema.path('name').validate(function(name) {
     return name.length;
-}, 'Le nom ne peut être vide');
+}, 'Please fill in a name');
 
 PlantSchema.path('type').validate(function(type) {
     return type.length;
-}, 'Le type ne peut être vide');
+}, 'Please fill in type');
 
 PlantSchema.path('mode').validate(function(mode) {
     return (mode === 'auto' || mode === 'manual');
-}, 'Mode doit être soit "Manuel" soit "Auto"');
+}, 'The mode must be "Manual" or "Auto"');
 
 /**
  * Statics

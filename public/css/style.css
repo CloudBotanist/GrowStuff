@@ -161,7 +161,7 @@ a:focus {
 #page-wrapper {
     padding: 0 15px;
     border: none;
-    background-color: #ecf0f1;
+    background-color: #EFEAE1;
 }
 
 .disconected {
@@ -941,6 +941,7 @@ a:focus {
 .circle-tile {
     margin-bottom: 15px;
     text-align: center;
+
 }
 
 .circle-tile-heading {
@@ -948,9 +949,10 @@ a:focus {
     width: 80px;
     height: 80px;
     margin: 0 auto -40px;
-    border: 3px solid rgba(255,255,255,0.3);
+    border: 2px solid #289F8B;
     border-radius: 100%;
-    color: #fff;
+    color: #289F8B;
+    background-color:#FFF;
     transition: all ease-in-out .3s;
 }
 
@@ -959,7 +961,9 @@ a:focus {
 }
 
 .circle-tile-content {
+    background-color:#FFF;
     padding-top: 50px;
+    border: 1px solid #289F8B;
 }
 
 .circle-tile-number {
@@ -967,48 +971,20 @@ a:focus {
     font-size: 26px;
     font-weight: 700;
     line-height: 1;
+    color: #289F8B;
 }
 
 .circle-tile-description {
     text-transform: uppercase;
+    color: #289F8B;
 }
 
 .circle-tile-footer {
     display: block;
     padding: 5px;
-    color: rgba(255,255,255,0.5);
+    color: #289F8B;
     background-color: rgba(0,0,0,0.1);
     transition: all ease-in-out .3s;
-}
-
-.circle-tile-footer:hover {
-    text-decoration: none;
-    color: rgba(255,255,255,0.5);
-    background-color: rgba(0,0,0,0.2);
-}
-
-.circle-tile-heading.dark-blue:hover {
-    background-color: #2e4154;
-}
-
-.circle-tile-heading.green:hover {
-    background-color: #138f77;
-}
-
-.circle-tile-heading.orange:hover {
-    background-color: #da8c10;
-}
-
-.circle-tile-heading.blue:hover {
-    background-color: #2473a6;
-}
-
-.circle-tile-heading.red:hover {
-    background-color: #cf4435;
-}
-
-.circle-tile-heading.purple:hover {
-    background-color: #7f3d9b;
 }
 
 /* -- Time Widget Tile */

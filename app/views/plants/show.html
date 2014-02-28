@@ -177,7 +177,7 @@ window.plantStatus = {{JSON.stringify(plant.status)|safe}};
             </a>
             <div class="circle-tile-content" style="padding:0px">
                 <div class="btn-picture">
-                <button type="button" class="btn btn-green" onclick="return confirm('Take picture');"> <i class="fa fa-instagram"></i> Take picture now</button></div>
+                <a class="btn btn-green" href="/plants/{{plant.id}}/picture"> <i class="fa fa-instagram"></i> Take picture now</a></div>
 
                 <div id="myCarousel" class="carousel slide">
                   <ol class="carousel-indicators">

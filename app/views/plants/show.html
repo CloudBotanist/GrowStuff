@@ -64,17 +64,17 @@ window.plantStatus = {{JSON.stringify(plant.status)|safe}};
                         </div>
                         <br><br>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown">
+                            <button type="button" class="btn btn-blue dropdown-toggle {% if !plant.is_connected %}disabled{% endif %}" data-toggle="dropdown">
                                 <i class="fa fa-tint"></i> Water it
                                 <span class="caret"></span>
-                            </button> 
+                            </button>
                             <ul class="dropdown-menu" role="menu">
                                 {% for value in [5, 10, 15, 20] %}
                                 <li>
                                     <a href="/plants/{{plant._id.toString()}}/watering?time={{value}}">{{value}} mL</a>
                                 </li>
                                 {% endfor %}
-                            </ul> 
+                            </ul>
                         </div>
                         <br>
                         <br>
@@ -177,7 +177,7 @@ window.plantStatus = {{JSON.stringify(plant.status)|safe}};
             </a>
             <div class="circle-tile-content" style="padding:0px">
                 <div class="btn-picture">
-                <a class="btn btn-green" href="/plants/{{plant.id}}/picture"> <i class="fa fa-instagram"></i> Take picture now</a></div>
+                <a href="/plants/{{plant.id}}/picture" class="btn btn-green {% if !plant.is_connected %}disabled{% endif %}"> <i class="fa fa-instagram"></i> Take picture now</a></div>
 
                 <div id="myCarousel" class="carousel slide">
                   <ol class="carousel-indicators">

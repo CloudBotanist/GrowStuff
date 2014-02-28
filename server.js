@@ -90,6 +90,9 @@ require('./app/workers/socket').init(sio);
 // Twitter stream
 require('./app/workers/twitter').crawler();
 
+// Scheduler
+require('./app/workers/picture').init();
+
 
 server.listen(port);
 console.log('Express app started on port ' + port);

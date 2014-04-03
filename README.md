@@ -49,7 +49,9 @@ Or you can directly tweet the plant using the following syntax:
 
 6. If you want to get the status of the plant, tweet : `@YourTwitterHandle #PlantNickname give me your status`
 
-7. Enjoy!
+7. You may also ask to the plant to take a selfie, click then on the button "Take picture now"
+
+8. Enjoy!
 
 
 
